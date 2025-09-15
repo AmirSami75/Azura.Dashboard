@@ -1,10 +1,7 @@
-export default function Home() {
+export default function mainLayout() {
   return (
-    <div className=" min-h-screen ">
-      <main>
-        hello every one <p>سلام بر همه دوستان </p>
-      </main>
-      <footer></footer>
+    <div className="">
+      hello every one <p>سلام بر همه دوستان </p>
     </div>
   );
 }

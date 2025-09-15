@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Vazirmatn } from "next/font/google";
-import LocalFont from "next/font/local";
 import localFont from "next/font/local";
 
 const vazir = Vazirmatn({
@@ -32,9 +31,9 @@ export default function RootLayout({
       dir="rtl"
       className={`${iranSans.variable} ${vazir.variable}`}
     >
-      <body>{children}</body>
+      <body className="">
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
-
-// antialiased
