@@ -1,3 +1,5 @@
+import Sidebar from "../../../components/dashboard/Sidebar";
+
 export default function DashboardLayout({
   children,
 }: Readonly<{
@@ -5,9 +7,9 @@ export default function DashboardLayout({
 }>) {
   return (
     <div className="flex min-h-screen">
-      <aside className="w-80 bg-white text-black p-4  shadow border-l-1 border-gray-200 ">
+      <aside className="w-80 bg-white text-black p-4 shadow border-l-1 border-gray-200">
         {/* sidebar component */}
-        sidebar
+        <Sidebar />
       </aside>
       {/* main content */}
       <div className="flex-1">

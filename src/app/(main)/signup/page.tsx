@@ -1,12 +1,12 @@
 "use client";
 
-import Input from "../../../components/ui/Input";
-import SubmitButton from "../../../components/ui/SubmitButton";
+import Input from "../../../../components/ui/Input";
+import SubmitButton from "../../../../components/ui/SubmitButton";
 import Link from "next/link";
 import React, { useState } from "react";
-import { signupService } from "../../../api/auth/userServices";
+import { signupService } from "../../../../api/auth/userServices";
 
-const Signup = () => {
+const SignupPage = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -73,4 +73,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupPage;

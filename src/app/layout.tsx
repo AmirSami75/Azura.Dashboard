@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Vazirmatn } from "next/font/google";
 import localFont from "next/font/local";
-import Image from "next/image";
 
 const vazir = Vazirmatn({
   subsets: ["arabic", "latin"],
@@ -32,22 +31,7 @@ export default function RootLayout({
       dir="rtl"
       className={`${iranSans.variable} ${vazir.variable}`}
     >
-      <body className="w-full h-screen flex">
-        {/* image */}
-        <div className="relative h-full w-full xl:w-1/2">
-          <Image
-            src="/images/login-image.jpg"
-            alt="login vector"
-            priority
-            fill
-            className="object-cover"
-          />
-        </div>
-        {/* content */}
-        <div className=" absolute inset-0 bg-white/40 flex justify-center items-center h-full xl:static  xl:w-1/2">
-          {children}
-        </div>
-      </body>
+      <body className="w-full h-screen">{children}</body>
     </html>
   );
 }
