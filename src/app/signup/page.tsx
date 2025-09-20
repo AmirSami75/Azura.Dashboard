@@ -4,7 +4,7 @@ import Input from "../../../components/ui/Input";
 import SubmitButton from "../../../components/ui/SubmitButton";
 import Link from "next/link";
 import React, { useState } from "react";
-import { signupService } from "../../../lib/auth/userServices";
+import { signupService } from "../../../api/auth/userServices";
 
 const Signup = () => {
   const [userName, setUserName] = useState("");

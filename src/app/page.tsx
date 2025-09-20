@@ -4,7 +4,7 @@ import Input from "../../components/ui/Input";
 import SubmitButton from "../../components/ui/SubmitButton";
 import Link from "next/link";
 import React, { useState } from "react";
-import { loginService } from "../../lib/auth/userServices";
+import { loginService } from "../../api/auth/userServices";
 
 export default function mainLayout() {
   const [userName, setUserName] = useState("");
