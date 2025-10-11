@@ -1,7 +1,7 @@
 import { FC } from "react";
 import MenuItem from "./menuItem";
 
-import { MenuDataProps } from "@/app/data/menuData";
+import { MenuDataProps } from "@/data/menuData";
 
 interface MenuListProps {
   list?: MenuDataProps[];

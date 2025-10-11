@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ip = "192.168.1.111";
+const ip = "http://localhost";
 const URL_SERVER = `${ip}:8585/api/v1`;
 
 export const signupService = (data: any) => {
@@ -10,5 +10,6 @@ export const signupService = (data: any) => {
 
 export const loginService = (data: any) => {
   const url = `${URL_SERVER}/auth/login`;
+
   return axios.post(url, data);
 };

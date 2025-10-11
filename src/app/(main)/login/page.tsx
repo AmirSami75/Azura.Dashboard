@@ -1,23 +1,32 @@
 "use client";
+
 import Input from "../../../../components/ui/Input";
 import SubmitButton from "../../../../components/ui/SubmitButton";
 import Link from "next/link";
 import React, { useState } from "react";
-import { loginService } from "../../../../api/auth/userServices";
+import { loginService } from "../../api/auth/userServices";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
+  const router = useRouter();
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = {
-      userName: { userName },
-      password: { password },
-    };
+    const req = { userName, password };
     try {
-      const res = await loginService(data);
-      console.log(res);
+      const { data: res } = await loginService(req);
+      const { token } = res.data;
+      if (token) {
+        await fetch("../../auth/set-token", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
+        router.push("/dashboard");
+      }
     } catch (e: any) {
       console.log(e.message);
     }

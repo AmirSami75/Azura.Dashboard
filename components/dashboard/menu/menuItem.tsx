@@ -5,7 +5,7 @@ import { FC, useState } from "react";
 import Link from "next/link";
 
 import MenuList from "./menuList";
-import { MenuDataProps } from "@/app/data/menuData";
+import { MenuDataProps } from "@/data/menuData";
 
 interface MenuItemProps {
   item: MenuDataProps;

@@ -4,7 +4,7 @@ import Input from "../../../../components/ui/Input";
 import SubmitButton from "../../../../components/ui/SubmitButton";
 import Link from "next/link";
 import React, { useState } from "react";
-import { signupService } from "../../../../api/auth/userServices";
+import { signupService } from "../../auth/userServices";
 
 const SignupPage = () => {
   const [userName, setUserName] = useState("");
@@ -14,15 +14,15 @@ const SignupPage = () => {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = {
-      userName: { userName },
-      password: { password },
-      fullName: { fullName },
-      phone: { phone },
+    const req = {
+      userName,
+      password,
+      fullName,
+      phone,
     };
     try {
-      const res = await signupService(data);
-      console.log(res);
+      const { data } = await signupService(req);
+      console.log(data);
     } catch (e: any) {
       console.log(e.message);
     }
@@ -59,7 +59,7 @@ const SignupPage = () => {
       />
       <Input
         label={"رمز عبور "}
-        type={"text"}
+        type={"password"}
         value={password}
         nameInput={"password"}
         onChange={(e) => setPassword(e.target.value)}
