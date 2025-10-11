@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 
+type viewportSize = {
+  width: number;
+  height: number;
+};
 // به دست اوردن سایز صفحه در هر بار تغییر سایز صفحه
-const useViewportSize = () => {
-  const [size, setSize] = useState({
+const useViewportSize = (): viewportSize => {
+  const [size, setSize] = useState<viewportSize>({
     width: window.innerWidth,
     height: window.innerHeight,
   });

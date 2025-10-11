@@ -1,6 +1,7 @@
 "use client";
 import MenuList from "./menu/menuList";
 import menuData from "@/data/menuData";
+import useViewportSize from "@/hooks/useViewportSize";
 
 import { IoMdClose } from "react-icons/io";
 
@@ -10,6 +11,9 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
+  const { width, height } = useViewportSize();
+  console.log(width);
+
   return (
     <>
       {/* sidebar */}
@@ -24,7 +28,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
               LOGO
             </span>
             <IoMdClose
-              className="text-xl"
+              className={`text-xl ${width > 1024 ? "hidden" : "null"}`}
               onClick={(e) => {
                 e.preventDefault();
                 setCollapsed((prev) => !prev);
