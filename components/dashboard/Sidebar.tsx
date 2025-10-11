@@ -2,6 +2,7 @@
 import MenuList from "./menu/menuList";
 import menuData from "@/data/menuData";
 import useViewportSize from "@/hooks/useViewportSize";
+import { useEffect } from "react";
 
 import { IoMdClose } from "react-icons/io";
 
@@ -11,9 +12,13 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
-  const { width, height } = useViewportSize();
-  console.log(width);
+  const { width } = useViewportSize();
 
+  useEffect(() => {
+    if (width > 1024) {
+      setCollapsed(true);
+    }
+  }, [width]);
   return (
     <>
       {/* sidebar */}

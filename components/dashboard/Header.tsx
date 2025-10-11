@@ -1,5 +1,6 @@
 import { CiMenuFries } from "react-icons/ci";
 import DarkmodeButton from "./DarkmodeButton";
+import useViewportSize from "@/hooks/useViewportSize";
 
 type HeaderProps = {
   collapsed: boolean;
@@ -7,13 +8,17 @@ type HeaderProps = {
 };
 
 const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
+  const { width } = useViewportSize();
+
   return (
     <div className="flex justify-between items-center">
       {/* right part */}
       <div>
         <CiMenuFries
           onClick={() => setCollapsed((prev) => !prev)}
-          className="text-2xl font-extrabold"
+          className={`text-2xl font-extrabold ${
+            width > 1024 ? "hidden" : "null"
+          }`}
         />
         {/* <Search/> */}
       </div>
