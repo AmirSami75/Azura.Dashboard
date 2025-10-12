@@ -13,19 +13,26 @@ const LoginPage = () => {
 
   const router = useRouter();
 
+  // function when click on login button
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const req = { userName, password };
     try {
       const { data: res } = await loginService(req);
-      const { token } = res.data;
+      // console.log(res);
+      const { token, requiresPasswordChange } = res.data;
       if (token) {
-        await fetch("../../auth/set-token", {
+        // ذخیره توکن در کوکی
+        await fetch("../../api/auth/set-token", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token }),
         });
-        router.push("/dashboard");
+        // اگر نیاز باشه کاربر پسورد خود را تغییر دهد به صفحه تغییر پسورد راهنمایی می شود
+        if (!requiresPasswordChange) {
+          router.push("/dashboard");
+        } else router.push("/changepass");
       }
     } catch (e: any) {
       console.log(e.message);
@@ -55,9 +62,6 @@ const LoginPage = () => {
       />
       <Link href={""} className="text-red-500 text-sm ">
         فراموشی رمز عبور
-      </Link>
-      <Link href={"/signup"} className=" text-sm">
-        ایجاد حساب کاربری
       </Link>
       <SubmitButton textButton="ورود" />
     </form>

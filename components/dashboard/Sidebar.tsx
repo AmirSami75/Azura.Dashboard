@@ -14,11 +14,13 @@ type SidebarProps = {
 const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
   const { width } = useViewportSize();
 
+  //برای زمانی که سایت بار رو در حالت های کوچک تر میبندی وقتی صفحه رو بزرگ تر می کنی خود به خود باز بشه که صفحه زیبا باشه
   useEffect(() => {
     if (width > 1024) {
       setCollapsed(true);
     }
   }, [width]);
+
   return (
     <>
       {/* sidebar */}
