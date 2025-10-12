@@ -84,9 +84,7 @@ const ChangePassPage = () => {
         nameInput={"confirmNewPass"}
         onChange={(e) => setConfirmNewPass(e.target.value)}
       />
-      <Link href={"/login"} className=" text-sm">
-        ورود به حساب کاربری
-      </Link>
+
       <SubmitButton textButton="تغییر رمز عبور" />
     </form>
   );
