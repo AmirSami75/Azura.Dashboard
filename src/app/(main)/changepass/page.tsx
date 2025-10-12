@@ -84,7 +84,6 @@ const ChangePassPage = () => {
         nameInput={"confirmNewPass"}
         onChange={(e) => setConfirmNewPass(e.target.value)}
       />
-
       <SubmitButton textButton="تغییر رمز عبور" />
     </form>
   );
