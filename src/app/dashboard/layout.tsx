@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useActionState, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/dashboard/Sidebar";
 import Header from "../../../components/dashboard/Header";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,6 @@ type DashboardLayoutProps = {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [collapsed, setCollapsed] = useState<boolean>(true);
-  const [token, setToken] = useState("");
 
   const router = useRouter();
 
@@ -23,15 +22,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           method: "GET",
           credentials: "include",
         });
+
         const data = await res.json();
         // console.log(data);
         const jwtToken = data.token;
-        setToken(jwtToken);
+
         if (!jwtToken) {
           router.push("/login");
         }
       } catch (err: any) {
-        console.log("خطا در بررسی توکن :", err.message);
+        alert(`خطا در بررسی توکن :${err.message}`);
       }
     };
     checkAuth();
@@ -40,12 +40,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div className="flex min-h-screen">
       {/* sidebar component */}
-      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+      <div className="flex-none">
+        <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+      </div>
 
       {/* main content */}
       <div className="flex-1 xl:mr-[228px]">
         {/* header component */}
-        <header className="p-6 shadow bg-white text-black">
+        <header className="p-7 shadow bg-white text-black">
           <Header collapsed={collapsed} setCollapsed={setCollapsed} />
         </header>
         {/* page.tsx component */}

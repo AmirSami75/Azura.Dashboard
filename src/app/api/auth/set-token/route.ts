@@ -1,13 +1,16 @@
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const { token } = await req.json();
 
   if (!token) {
-    return new Response("Token is required", { status: 400 });
+    return NextResponse.json("Token is required", { status: 400 });
   }
 
-  (await cookies()).set("token", token, {
+  (await cookies()).set({
+    name: "token",
+    value: token,
     // توکن از سمت سرور قابل خوندنه
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -16,5 +19,5 @@ export async function POST(req: Request) {
     // مدت زمان اعتبار توکن
     maxAge: 60 * 60 * 24,
   });
-  return Response.json({ success: true });
+  return NextResponse.json({ IsSuccess: true });
 }

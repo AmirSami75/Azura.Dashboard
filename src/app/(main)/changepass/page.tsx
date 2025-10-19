@@ -31,7 +31,7 @@ const ChangePassPage = () => {
         router.push("/dashboard");
       }
     } catch (e: any) {
-      console.log(e.message);
+      alert(e.message);
     }
   };
 

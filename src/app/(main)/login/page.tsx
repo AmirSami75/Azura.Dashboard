@@ -4,8 +4,8 @@ import Input from "../../../../components/ui/Input";
 import SubmitButton from "../../../../components/ui/SubmitButton";
 import Link from "next/link";
 import React, { useState } from "react";
-import { loginService } from "../../api/auth/userServices";
 import { useRouter } from "next/navigation";
+import { loginUserService } from "@/app/api/auth/auth";
 
 const LoginPage = () => {
   const [userName, setUserName] = useState("");
@@ -16,26 +16,33 @@ const LoginPage = () => {
   // function when click on login button
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const req = { userName, password };
     try {
-      const { data: res } = await loginService(req);
+      let res = await loginUserService(userName, password);
       // console.log(res);
-      const { token, requiresPasswordChange } = res.data;
-      if (token) {
-        // ذخیره توکن در کوکی
-        await fetch("../../api/auth/set-token", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token }),
-        });
-        // اگر نیاز باشه کاربر پسورد خود را تغییر دهد به صفحه تغییر پسورد راهنمایی می شود
-        if (!requiresPasswordChange) {
-          router.push("/dashboard");
-        } else router.push("/changepass");
+
+      if (res.isSuccess) {
+        const { token, requiresPasswordChange } = res.data;
+        // console.log(token);
+        // console.log(requiresPasswordChange);
+
+        if (token) {
+          // ذخیره توکن در کوکی
+          await fetch("../../api/auth/set-token", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token }),
+          });
+
+          // اگر نیاز باشه کاربر پسورد خود را تغییر دهد به صفحه تغییر پسورد راهنمایی می شود
+          if (!requiresPasswordChange) {
+            router.push("/dashboard");
+          } else router.push("/changepass");
+        }
       }
-    } catch (e: any) {
-      console.log(e.message);
+      const errMessage = JSON.parse(res.message);
+      alert(errMessage.Exception);
+    } catch (err: any) {
+      console.log(err);
     }
   };
 

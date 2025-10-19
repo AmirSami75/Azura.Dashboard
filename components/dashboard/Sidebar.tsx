@@ -8,6 +8,7 @@ import { IoMdClose } from "react-icons/io";
 
 type SidebarProps = {
   collapsed: boolean;
+
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -18,6 +19,8 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
   useEffect(() => {
     if (width > 1024) {
       setCollapsed(true);
+    } else {
+      setCollapsed(false);
     }
   }, [width]);
 
@@ -45,7 +48,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
           {/* sidebar content */}
           <div className="px-4 py-6 mb-4 h-[calc(100%-40px)] grow">
             {menuData && menuData.length > 0 ? (
-              <MenuList list={menuData} />
+              <MenuList list={menuData} setCollapsed={setCollapsed} />
             ) : null}
           </div>
         </div>

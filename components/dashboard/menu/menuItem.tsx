@@ -9,9 +9,10 @@ import { MenuDataProps } from "@/data/menuData";
 
 interface MenuItemProps {
   item: MenuDataProps;
+  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MenuItem: FC<MenuItemProps> = ({ item }) => {
+const MenuItem: FC<MenuItemProps> = ({ item, setCollapsed }) => {
   const [displayChildrenItems, setDisplayChildrenItems] = useState<{
     [key: string]: boolean;
   }>({});
@@ -29,7 +30,11 @@ const MenuItem: FC<MenuItemProps> = ({ item }) => {
         className="flex justify-between px-4 py-3 rounded-lg hover:bg-gray-100 hover:text-gray-700 hover:shadow-sm"
         onClick={() => handleToggleChildren(item.label)}
       >
-        <Link className="text-sm font-medium" href={item.to}>
+        <Link
+          className="text-sm font-medium"
+          href={item.to}
+          onClick={() => setCollapsed(false)}
+        >
           {item.label}
         </Link>
         {item && item.children && item.children.length > 0 ? (
@@ -48,7 +53,7 @@ const MenuItem: FC<MenuItemProps> = ({ item }) => {
       item.children.length > 0 &&
       displayChildrenItems[item.label] ? (
         <div className="pl-4 ">
-          <MenuList list={item.children} />
+          <MenuList list={item.children} setCollapsed={setCollapsed} />
         </div>
       ) : null}
     </li>

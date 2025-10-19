@@ -7,8 +7,6 @@ type viewportSize = {
 // به دست اوردن سایز صفحه در هر بار تغییر سایز صفحه
 const useViewportSize = (): viewportSize => {
   const [size, setSize] = useState<viewportSize>({
-    // width: window.innerWidth,
-    // height: window.innerHeight,
     width: 0,
     height: 0,
   });

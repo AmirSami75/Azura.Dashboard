@@ -7,31 +7,31 @@ export interface MenuDataProps {
 const menuData: MenuDataProps[] = [
   {
     label: "داشبورد",
-    to: "#/dashboard",
+    to: "/dashboard",
   },
   {
     label: "مدیریت کاربران",
-    to: "#/users",
+    to: "",
     children: [
       {
         label: "کاربران",
-        to: "#/users/all",
+        to: "dashboard/users",
       },
       {
         label: "اضافه کردن کاربر",
-        to: "#/users/add",
+        to: "/users/add",
       },
       {
         label: "تنظیمات",
-        to: "#/users/settings",
+        to: "/users/settings",
         children: [
           {
             label: "شخصی",
-            to: "#/users/settings/profile",
+            to: "/users/settings/profile",
           },
           {
             label: "حریم شخصی",
-            to: "#/users/settings/privacy",
+            to: "/users/settings/privacy",
           },
         ],
       },
@@ -39,29 +39,29 @@ const menuData: MenuDataProps[] = [
   },
   {
     label: "تنظیمات",
-    to: "#/settings",
+    to: "/settings",
     children: [
       {
         label: "عمومی",
-        to: "#/settings/general",
+        to: "/settings/general",
       },
       {
         label: "ظاهری",
-        to: "#/settings/appearance",
+        to: "/settings/appearance",
       },
     ],
   },
   {
     label: "گزارشات",
-    to: "#/reports",
+    to: "/reports",
     children: [
       {
         label: "گزرشات فروش",
-        to: "#/reports/sales",
+        to: "/reports/sales",
       },
       {
         label: "گزارشات کاربران",
-        to: "#/reports/users",
+        to: "/reports/users",
       },
     ],
   },
