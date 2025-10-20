@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { getAllUsers } from "@/src/app/api/auth/auth";
+import { getAllUsers } from "@/app/api/auth/auth";
 import User from "@/components/dashboard/users/User";
-import { UserProps } from "@/src/models/users/User";
+import { UserProps } from "@/models/users/User";
 
 const Users: React.FC = () => {
   const router = useRouter();
@@ -58,25 +58,25 @@ const Users: React.FC = () => {
     fetchData();
   }, [token]);
 
-  console.log(users);
-
   return (
-    <table className="min-w-full divide-y divide-gray-200  text-right">
-      <thead className=" text-gray-700 font-bold text-md">
-        <tr>
-          <th className=" px-4 py-3">نام و نام خانوادگی</th>
-          <th className="  px-4 py-3">نقش</th>
-          <th className=" px-4 py-3">ایمیل</th>
-          <th className=" px-4 py-3">پوزیشن شغلی</th>
-          <th className=" px-4 py-3 text-left">فعالیت </th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-100 text-sm">
-        {users.map((user) => (
-          <User key={user.branchId} user={user} />
-        ))}
-      </tbody>
-    </table>
+    <>
+      <table className="min-w-full divide-y divide-gray-200  text-right">
+        <thead className=" text-gray-700 font-bold text-md">
+          <tr>
+            <th className=" px-4 py-3">نام و نام خانوادگی</th>
+            <th className="  px-4 py-3">نقش</th>
+            <th className=" px-4 py-3">ایمیل</th>
+            <th className=" px-4 py-3">پوزیشن شغلی</th>
+            <th className=" px-4 py-3 text-left">فعالیت </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-100 text-sm">
+          {users.map((user) => (
+            <User key={user.branchId} user={user} />
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 

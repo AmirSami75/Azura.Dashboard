@@ -1,14 +1,14 @@
 "use client";
+
+import { useEffect } from "react";
+import { IoMdClose } from "react-icons/io";
+
 import MenuList from "./menu/menuList";
 import menuData from "@/data/menuData";
 import useViewportSize from "@/hooks/useViewportSize";
-import { useEffect } from "react";
-
-import { IoMdClose } from "react-icons/io";
 
 type SidebarProps = {
   collapsed: boolean;
-
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

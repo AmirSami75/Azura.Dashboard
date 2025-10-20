@@ -5,7 +5,7 @@ import { FC, useState } from "react";
 import Link from "next/link";
 
 import MenuList from "./menuList";
-import { MenuDataProps } from "@/data/menuData";
+import { MenuDataProps } from "@/src/data/menuData";
 
 interface MenuItemProps {
   item: MenuDataProps;
@@ -25,20 +25,29 @@ const MenuItem: FC<MenuItemProps> = ({ item, setCollapsed }) => {
   };
 
   return (
-    <li className=" text-gray-500 font-medium text-sm cursor-pointer  ">
+    <li className=" text-gray-500 font-medium text-sm cursor-pointer">
       <div
-        className="flex justify-between px-4 py-3 rounded-lg hover:bg-gray-100 hover:text-gray-700 hover:shadow-sm"
+        className="flex justify-between  rounded-lg hover:bg-gray-100 hover:text-gray-700 hover:shadow-sm"
         onClick={() => handleToggleChildren(item.label)}
+        style={{
+          backgroundColor:
+            item &&
+            item.children &&
+            item.children.length > 0 &&
+            displayChildrenItems[item.label]
+              ? "#e5e7eb"
+              : "",
+        }}
       >
         <Link
-          className="text-sm font-medium"
+          className="text-sm font-medium px-4 py-3 flex-none"
           href={item.to}
           onClick={() => setCollapsed(false)}
         >
           {item.label}
         </Link>
         {item && item.children && item.children.length > 0 ? (
-          <span className="grid place-content-center">
+          <span className="flex items-center justify-end  flex-1 px-2">
             {displayChildrenItems[item.label] ? (
               <IoIosArrowUp />
             ) : (

@@ -1,8 +1,8 @@
 "use client";
 
 import { changePass } from "@/app/api/auth/userServices";
-import Input from "../../../../components/ui/Input";
-import SubmitButton from "../../../../components/ui/SubmitButton";
+import Input from "@/components/ui/Input";
+import SubmitButton from "@/components/ui/SubmitButton";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ const ChangePassPage = () => {
 
   const router = useRouter();
 
-  // fuction when user click on changepass button
+  // وقتی کاربر روی دکمه تغییر رمز عبور کلیک می کنه این فاکنشن کال میشه
   const handleChangePass = async (e: React.FormEvent) => {
     e.preventDefault();
 

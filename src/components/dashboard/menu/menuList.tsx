@@ -1,7 +1,7 @@
 import { FC } from "react";
 import MenuItem from "./menuItem";
 
-import { MenuDataProps } from "@/data/menuData";
+import { MenuDataProps } from "@/src/data/menuData";
 
 interface MenuListProps {
   list?: MenuDataProps[];
@@ -10,7 +10,7 @@ interface MenuListProps {
 
 const MenuList: FC<MenuListProps> = ({ list = [], setCollapsed }) => {
   return (
-    <ul className=" space-y-3">
+    <ul className="space-y-3">
       {list && list.length
         ? list.map((item) => (
             <MenuItem

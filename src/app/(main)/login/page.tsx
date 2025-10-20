@@ -1,10 +1,11 @@
 "use client";
 
-import Input from "../../../../components/ui/Input";
-import SubmitButton from "../../../../components/ui/SubmitButton";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+
+import Input from "@/components/ui/Input";
+import SubmitButton from "@/components/ui/SubmitButton";
 import { loginUserService } from "@/app/api/auth/auth";
 
 const LoginPage = () => {
@@ -18,20 +19,23 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       let res = await loginUserService(userName, password);
-      // console.log(res);
+      console.log("login user service calling : ", res.message);
 
       if (res.isSuccess) {
         const { token, requiresPasswordChange } = res.data;
-        // console.log(token);
-        // console.log(requiresPasswordChange);
+        // console.log(token, requiresPasswordChange);
 
         if (token) {
           // ذخیره توکن در کوکی
-          await fetch("../../api/auth/set-token", {
+          const tokenRes = await fetch("/api/auth/set-token", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ token }),
+            credentials: "include",
           });
+
+          const tokenData = await tokenRes.json();
+          console.log("set token res in login page: ", tokenData);
 
           // اگر نیاز باشه کاربر پسورد خود را تغییر دهد به صفحه تغییر پسورد راهنمایی می شود
           if (!requiresPasswordChange) {
@@ -39,10 +43,8 @@ const LoginPage = () => {
           } else router.push("/changepass");
         }
       }
-      const errMessage = JSON.parse(res.message);
-      alert(errMessage.Exception);
     } catch (err: any) {
-      console.log(err);
+      console.log(err.message);
     }
   };
 

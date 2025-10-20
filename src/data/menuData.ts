@@ -19,7 +19,7 @@ const menuData: MenuDataProps[] = [
       },
       {
         label: "اضافه کردن کاربر",
-        to: "/users/add",
+        to: "/dashboard/users/addUser",
       },
       {
         label: "تنظیمات",
