@@ -1,8 +1,8 @@
-import { redirect } from "next/navigation";
-
-export default async function RootPage() {
-  const session = false;
-  if (!session) redirect("/login");
-  redirect("/dashboard");
-  return null;
+export default function RootPage() {
+  return (
+    <div>
+      <h1>Welcome to the Home Page!</h1>
+      {/* سایر محتوای صفحه */}
+    </div>
+  );
 }

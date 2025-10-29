@@ -15,7 +15,7 @@ const menuData: MenuDataProps[] = [
     children: [
       {
         label: "کاربران",
-        to: "dashboard/users",
+        to: "/dashboard/users",
       },
       {
         label: "اضافه کردن کاربر",

@@ -1,10 +1,11 @@
+import { url } from "inspector";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
   // 1. گرفتن توکن از کوکی
   const token = req.cookies.get("token")?.value;
-  //   console.log(token);
+  console.log(token);
 
   // 2. مسیر فعلی
   const { pathname } = req.nextUrl;
@@ -19,8 +20,24 @@ export function middleware(req: NextRequest) {
 
     return pathname.startsWith(path);
   });
+
+  if (pathname === "/") {
+    if (token) {
+      console.log("middleware:user has token,redirecting to dashboard");
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    } else {
+      console.log("middleware:no token,redirecting to login");
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+  }
+
   if (!token && !isPublicPath) {
-    console.log("middleware : no token no public path ");
+    console.log("middleware : no token or no public path ");
+    // هدایت به صفحه‌ی لاگین
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+  if (!token) {
+    console.log("middleware : token expired ");
     // هدایت به صفحه‌ی لاگین
     return NextResponse.redirect(new URL("/login", req.url));
   }
@@ -47,6 +64,8 @@ export const config = {
       - api های خاص
     */
     "/dashboard/:path*",
+    "/",
     "/dashboard",
+    // "/api/:path*"
   ],
 };

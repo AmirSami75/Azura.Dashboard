@@ -1,37 +1,49 @@
 "use client";
 
-import { changePass } from "@/app/api/auth/userServices";
 import Input from "@/components/ui/Input";
+import { changePassService } from "@/app/api/auth/auth";
 import SubmitButton from "@/components/ui/SubmitButton";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  ChangepassValidation,
+  ChangepassValidationType,
+} from "@/lib/validation/changepassValidation";
 
 const ChangePassPage = () => {
-  const [currentPass, setCurrentPass] = useState("");
-  const [newPass, setNewPass] = useState("");
-  const [confirmNewPass, setConfirmNewPass] = useState("");
   const [token, setToken] = useState("");
 
   const router = useRouter();
 
-  // وقتی کاربر روی دکمه تغییر رمز عبور کلیک می کنه این فاکنشن کال میشه
-  const handleChangePass = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<ChangepassValidationType>({
+    resolver: zodResolver(ChangepassValidation),
+    defaultValues: {
+      currentPass: "",
+      newPass: "",
+      confirmNewPass: "",
+    },
+  });
 
-    const req = {
-      currentPass,
-      newPass,
-      confirmNewPass,
-    };
+  // وقتی کاربر روی دکمه تغییر رمز عبور کلیک می کنه این فاکنشن کال میشه
+  const handleChangePass = async (data: ChangepassValidationType) => {
+    // debugger;
 
     try {
-      const { data } = await changePass(req, token);
-      if (data.isSuccess) {
+      const res = await changePassService(data, token);
+      if (!res.isSuccess) {
+        alert(res.message);
+        // router.push("/login");
+      } else {
         router.push("/dashboard");
       }
     } catch (e: any) {
-      alert(e.message);
+      console.log(e.message);
     }
   };
 
@@ -47,9 +59,6 @@ const ChangePassPage = () => {
         // console.log(data);
         const jwtToken = data.token;
         setToken(jwtToken);
-        if (!jwtToken) {
-          router.push("/login");
-        }
       } catch (err: any) {
         console.log("خطا در بررسی توکن :", err.message);
       }
@@ -59,30 +68,30 @@ const ChangePassPage = () => {
 
   return (
     <form
-      onSubmit={handleChangePass}
+      onSubmit={handleSubmit(handleChangePass)}
       className="bg-white px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
     >
       <h2 className="text-center text-2xl py-4">ورود به حساب کاربری</h2>
       <Input
         label={"رمز فعلی"}
         type="password"
-        value={currentPass}
         nameInput="currentPass"
-        onChange={(e) => setCurrentPass(e.target.value)}
+        register={register("currentPass")}
+        error={errors.currentPass?.message}
       />
       <Input
         label={"رمز جدید"}
         type="password"
-        value={newPass}
         nameInput="newPass"
-        onChange={(e) => setNewPass(e.target.value)}
+        register={register("newPass")}
+        error={errors.newPass?.message}
       />
       <Input
         label={"تکرار رمز جدید"}
         type={"password"}
-        value={confirmNewPass}
         nameInput={"confirmNewPass"}
-        onChange={(e) => setConfirmNewPass(e.target.value)}
+        register={register("confirmNewPass")}
+        error={errors.confirmNewPass?.message}
       />
       <SubmitButton textButton="تغییر رمز عبور" />
     </form>

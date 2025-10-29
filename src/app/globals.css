@@ -2,6 +2,25 @@
 
 :root {
   --font-main: var(--font-vazir), var(--font-iranSans-local), sans-serif;
+
+  --primary: 240, 5%, 45%; /* رنگ اصلی */
+  --primary-foreground: 0, 0%, 100%; /* پیش‌زمینه رنگ اصلی */
+  --secondary: 120, 50%, 45%; /* رنگ ثانویه */
+  --secondary-foreground: 0, 0%, 100%; /* پیش‌زمینه رنگ ثانویه */
+  --destructive: 0, 100%, 50%; /* رنگ تخریبی */
+  --destructive-foreground: 0, 0%, 100%; /* پیش‌زمینه رنگ تخریبی */
+  --success: 120, 50%, 40%; /* رنگ موفقیت */
+  --success-foreground: 0, 0%, 100%; /* پیش‌زمینه رنگ موفقیت */
+  --info: 200, 80%, 50%; /* رنگ اطلاعات */
+  --info-foreground: 0, 0%, 100%; /* پیش‌زمینه رنگ اطلاعات */
+  --warning: 45, 90%, 60%; /* رنگ هشدار */
+  --warning-foreground: 0, 0%, 100%; /* پیش‌زمینه رنگ هشدار */
+  --dark: 240, 5%, 20%; /* رنگ تاریک */
+  --muted: 240, 10%, 60%; /* رنگ محو */
+  --muted-foreground: 0, 0%, 100%; /* پیش‌زمینه رنگ محو */
+  --accent: 255, 100%, 40%; /* رنگ اکسن */
+  --accent-foreground: 0, 0%, 100%; /* پیش‌زمینه رنگ اکسن */
+  --radius: 8px; /* شعاع مرز */
 }
 
 body {

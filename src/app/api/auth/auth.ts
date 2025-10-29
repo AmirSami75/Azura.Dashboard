@@ -34,25 +34,30 @@ export const loginUserService = async (
   } catch (err: any) {
     const errData = err.response?.data;
     // console.log(errData);
+
+    // console.log(errData);
     return {
       isSuccess: errData.IsSuccess,
       data: null,
       statusCode: errData.StatusCode,
-      message: errData.Message,
+      // message,
+      message: errData?.Message,
     };
   }
 };
 
 export const changePassService = async (
   passData: object,
-  token: any
+  token: string
 ): Promise<ApiResponse> => {
   const url = `${URL_SERVER}/auth/change-password`;
-
+  // debugger;
+  // console.log(passData, token);
   try {
     const { data: res } = await axios.put(url, passData, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    // console.log("change pass request api res : ", res);
     return {
       isSuccess: res.isSuccess ?? true,
       data: res.data,
@@ -63,7 +68,7 @@ export const changePassService = async (
     const message =
       err.response?.data?.message || err.message || "change pass failed";
     return {
-      isSuccess: message,
+      isSuccess: false,
       data: null,
       statusCode: err.response?.statusCode,
       message,
@@ -73,11 +78,13 @@ export const changePassService = async (
 
 export const getAllUsers = async (token: string) => {
   const url = `${URL_SERVER}/user`;
-  // debugger;
+  debugger;
+  console.log(token);
   try {
     const { data: res } = await axios.get(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    console.log(res);
     return {
       isSuccess: res.isSuccess ?? true,
       data: res.data,
@@ -85,10 +92,66 @@ export const getAllUsers = async (token: string) => {
       message: res.message || "getting all users successful",
     };
   } catch (err: any) {
+    console.log(err);
+
     const message =
       err.response?.data?.message || err.message || "getting all users failed";
     return {
-      isSuccess: message,
+      isSuccess: err.isSuccess || false,
+      data: null,
+      statusCode: err.response?.statusCode,
+      message,
+    };
+  }
+};
+
+export const getRolesService = async (token: string): Promise<ApiResponse> => {
+  const url = `${URL_SERVER}/role`;
+  try {
+    //? call role api
+    const { data: res } = await axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return {
+      isSuccess: res.isSuccess ?? true,
+      data: res.data,
+      statusCode: res.statusCode,
+      message: res.message || "get roles successful",
+    };
+  } catch (err: any) {
+    const errData = err.response?.data;
+    return {
+      isSuccess: errData.IsSuccess,
+      data: null,
+      statusCode: errData.StatusCode,
+      message: errData.Message,
+    };
+  }
+};
+
+export const getUserService = async (token: string, id: string) => {
+  const url = `${URL_SERVER}/user/${id}`;
+  debugger;
+  console.log(token);
+  try {
+    const { data: res } = await axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(res);
+    return {
+      isSuccess: res.isSuccess ?? true,
+      data: res.data,
+      statusCode: res.statusCode,
+      message: res.message || "getting user successful",
+    };
+  } catch (err: any) {
+    console.log(err);
+
+    const message =
+      err.response?.data?.message || err.message || "getting user failed";
+    return {
+      isSuccess: err.isSuccess || false,
       data: null,
       statusCode: err.response?.statusCode,
       message,

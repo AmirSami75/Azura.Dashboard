@@ -29,7 +29,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
       {/* sidebar */}
       <div className="h-full fixed start-0 top-0 z-50 pointer-events-none">
         <div
-          className="pointer-events-auto relative z-10 h-full w-[228px] transition-all duration-300 bg-white shadow border-l-1 border-gray-200"
+          className="pointer-events-auto relative z-10 h-full w-[228px] transition-all duration-100 bg-white shadow border-l-1 border-gray-200"
           style={{ translate: collapsed ? "0 0 " : "100% 0 " }}
         >
           {/* sidebar header */}

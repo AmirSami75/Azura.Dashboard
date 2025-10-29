@@ -5,7 +5,8 @@ import { FC, useState } from "react";
 import Link from "next/link";
 
 import MenuList from "./menuList";
-import { MenuDataProps } from "@/src/data/menuData";
+import { MenuDataProps } from "@/data/menuData";
+import useViewportSize from "@/hooks/useViewportSize";
 
 interface MenuItemProps {
   item: MenuDataProps;
@@ -16,6 +17,8 @@ const MenuItem: FC<MenuItemProps> = ({ item, setCollapsed }) => {
   const [displayChildrenItems, setDisplayChildrenItems] = useState<{
     [key: string]: boolean;
   }>({});
+
+  const { width } = useViewportSize();
 
   const handleToggleChildren = (itemLabel: string) => {
     setDisplayChildrenItems((prev: any) => ({
@@ -42,7 +45,7 @@ const MenuItem: FC<MenuItemProps> = ({ item, setCollapsed }) => {
         <Link
           className="text-sm font-medium px-4 py-3 flex-none"
           href={item.to}
-          onClick={() => setCollapsed(false)}
+          onClick={() => (width < 1024 ? setCollapsed(false) : null)}
         >
           {item.label}
         </Link>

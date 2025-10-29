@@ -1,21 +1,22 @@
 import { FC } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 interface InputProps {
   label: string;
   type?: string;
-  value: string;
   nameInput: string;
   placeHolder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  register?: UseFormRegisterReturn;
+  error?: string;
 }
 
 const Input: FC<InputProps> = ({
   label,
-  type,
-  value,
+  type = "text",
   nameInput,
   placeHolder,
-  onChange,
+  register,
+  error,
 }) => {
   return (
     <div className="flex flex-col gap-y-2 w-full justify-center items-right">
@@ -24,12 +25,14 @@ const Input: FC<InputProps> = ({
       </label>
       <input
         type={type}
-        value={value}
         id={nameInput}
         placeholder={placeHolder}
-        onChange={onChange}
-        className="p-2  border-1 border-gray-300 placeholder:text-gray-500 w-full bg-white rounded-lg shadow text-sm "
+        {...register}
+        className={`p-2  border-1 placeholder:text-gray-500 w-full bg-white rounded-lg shadow text-sm ${
+          error ? "border-red-500" : "border-gray-300 "
+        }`}
       />
+      {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
     </div>
   );
 };

@@ -3,22 +3,40 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import Input from "@/components/ui/Input";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { loginUserService } from "@/app/api/auth/auth";
+import {
+  LoginValidation,
+  LoginValidationType,
+} from "@/lib/validation/loginValidation";
 
 const LoginPage = () => {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-
   const router = useRouter();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginValidationType>({
+    resolver: zodResolver(LoginValidation),
+    defaultValues: {
+      userName: "",
+      password: "",
+    },
+  });
+
   // function when click on login button
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (data: LoginValidationType) => {
+    // debugger;
+    // console.log(data);
     try {
-      let res = await loginUserService(userName, password);
+      let res = await loginUserService(data.userName, data.password);
+      // const message = JSON.parse(res);
+      // console.log("login user service calling : ", message.Exception);
       console.log("login user service calling : ", res.message);
 
       if (res.isSuccess) {
@@ -39,6 +57,7 @@ const LoginPage = () => {
 
           // اگر نیاز باشه کاربر پسورد خود را تغییر دهد به صفحه تغییر پسورد راهنمایی می شود
           if (!requiresPasswordChange) {
+            await new Promise((r) => setTimeout(r, 500));
             router.push("/dashboard");
           } else router.push("/changepass");
         }
@@ -50,24 +69,25 @@ const LoginPage = () => {
 
   return (
     <form
-      onSubmit={handleLogin}
+      noValidate
+      onSubmit={handleSubmit(handleLogin)}
       className="bg-white px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
     >
       <h2 className="text-center text-2xl py-4">ورود به حساب کاربری</h2>
       <Input
         label={"نام کاربری"}
         type={"text"}
-        value={userName}
         nameInput={"user"}
         placeHolder={"شماره تماس یا ایمیل "}
-        onChange={(e) => setUserName(e.target.value)}
+        register={register("userName")}
+        error={errors.userName?.message}
       />
       <Input
         label={"رمز عبور "}
         type={"password"}
-        value={password}
         nameInput={"password"}
-        onChange={(e) => setPassword(e.target.value)}
+        register={register("password")}
+        error={errors.password?.message}
       />
       <Link href={""} className="text-red-500 text-sm ">
         فراموشی رمز عبور

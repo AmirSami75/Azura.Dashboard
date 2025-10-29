@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 import Input from "@/components/ui/Input";
 import SubmitButton from "@/components/ui/SubmitButton";
@@ -14,10 +13,9 @@ import {
   addUserValidation,
   AddUserValidationType,
 } from "@/lib/validation/addUserValidation";
+import { getUserService } from "@/app/api/auth/auth";
 
-const AddUser: React.FC = () => {
-  // const [roles, setRoles] = useState<string[]>([]);
-
+const EditUser: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -42,14 +40,8 @@ const AddUser: React.FC = () => {
 
   const router = useRouter();
 
-  const handleAddNewUser = async (data: AddUserValidationType) => {
-    debugger;
-    // دیتا از zod عبور کرده و ولیدیشن ان چک شده است
-    console.log("فرم ارسال شد: ", data);
-    // شبیه سازی ارسال
-    // await new Promise((r) => setTimeout(r, 600));
-    // ریست فرم در صورت نیاز
-    // reset();
+  const handleEditUser = async (data: AddUserValidationType) => {
+    console.log("فرم ویراش شد: ", data);
   };
 
   // برای دریافت توکن از کوکی در زمان ورود به صفحه
@@ -61,14 +53,13 @@ const AddUser: React.FC = () => {
           method: "GET",
           credentials: "include",
         });
-        // console.log(tokenRes);
+
         const tokenData = await tokenRes.json();
         const token = tokenData.token;
         console.log(token);
-        // دریاقت نقش ها از api
-        // const rolesRes = await getRolesService(token);
-        // const  = await rolesRes.json()
-        // console.log(rolesRes);
+
+        const id = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
+        const userRes = await getUserService(token, id);
       } catch (err: any) {
         alert(`خطا در بررسی توکن :${err.message}`);
       }
@@ -81,7 +72,7 @@ const AddUser: React.FC = () => {
       {/* novalidation:  مرورگر را از ولیدیشن داخلی بازمیداره */}
       <form
         noValidate
-        onSubmit={handleSubmit(handleAddNewUser)}
+        onSubmit={handleSubmit(handleEditUser)}
         className="bg-white px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
       >
         <h2 className="text-center text-2xl py-4">افزودن کاربر جدید</h2>
@@ -100,24 +91,11 @@ const AddUser: React.FC = () => {
           register={register("fullName")}
           error={errors.fullName?.message}
         />
-        {/* <SelectInput
-        control={control},
-  name="roles",
-  label="نقش کاربر ",
-  options,
-  multiple = false,
-  error,
-        
-        
-        /> */}
 
-        <Link href={""} className="text-red-500 text-sm ">
-          فراموشی رمز عبور
-        </Link>
-        <SubmitButton textButton="افزودن کاربر" />
+        <SubmitButton textButton="ویرایش کاربر" />
       </form>
     </div>
   );
 };
 
-export default AddUser;
+export default EditUser;

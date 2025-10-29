@@ -5,7 +5,7 @@ export async function GET() {
   // debugger;
   try {
     const token = (await cookies()).get("token")?.value;
-    console.log(token);
+    // console.log(token);
 
     if (!token) {
       return NextResponse.json({ Authorization: false }, { status: 401 });
