@@ -16,7 +16,7 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
       <div>
         <CiMenuFries
           onClick={() => setCollapsed((prev) => !prev)}
-          className={`text-2xl font-extrabold ${
+          className={`text-2xl font-extrabold  ${
             width > 1024 ? "hidden" : "null"
           }`}
         />
@@ -30,6 +30,7 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
         {/* darkmode icon */}
         <DarkmodeButton />
       </div>
+      <div className="bg-primary text-primary-foreground p-4">hi </div>
     </div>
   );
 };

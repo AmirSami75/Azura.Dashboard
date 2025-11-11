@@ -14,4 +14,7 @@ export type UserProps = {
   parentId: string;
   parentName: string;
   roles: Roles[];
+  id: string;
+  creationDate: string;
+  modificationDate: string;
 };

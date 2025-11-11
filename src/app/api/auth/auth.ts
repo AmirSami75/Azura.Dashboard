@@ -78,7 +78,7 @@ export const changePassService = async (
 
 export const getAllUsers = async (token: string) => {
   const url = `${URL_SERVER}/user`;
-  debugger;
+  // debugger;
   console.log(token);
   try {
     const { data: res } = await axios.get(url, {
@@ -132,7 +132,7 @@ export const getRolesService = async (token: string): Promise<ApiResponse> => {
 
 export const getUserService = async (token: string, id: string) => {
   const url = `${URL_SERVER}/user/${id}`;
-  debugger;
+  // debugger;
   console.log(token);
   try {
     const { data: res } = await axios.get(url, {
@@ -150,6 +150,35 @@ export const getUserService = async (token: string, id: string) => {
 
     const message =
       err.response?.data?.message || err.message || "getting user failed";
+    return {
+      isSuccess: err.isSuccess || false,
+      data: null,
+      statusCode: err.response?.statusCode,
+      message,
+    };
+  }
+};
+
+export const deleteUserService = async (token: string, id: string) => {
+  const url = `${URL_SERVER}/user/${id}`;
+  // debugger;
+  // console.log(token);
+  try {
+    const { data: res } = await axios.delete(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(res);
+    return {
+      isSuccess: res.isSuccess ?? true,
+      data: res.data,
+      statusCode: res.statusCode,
+      message: res.message || "delete user successful",
+    };
+  } catch (err: any) {
+    console.log(err);
+
+    const message =
+      err.response?.data?.message || err.message || "delete user failed";
     return {
       isSuccess: err.isSuccess || false,
       data: null,
