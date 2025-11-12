@@ -12,20 +12,29 @@ body {
 @theme {
   --color-primary: hsl(240, 5%, 45%); /* رنگ اصلی */
   --color-primary-foreground: hsl(0, 0%, 100%); /* پیش‌زمینه رنگ اصلی */
+
   --color-secondary: hsl(120, 50%, 45%); /* رنگ ثانویه */
   --color-secondary-foreground: hsl(0, 0%, 100%); /* پیش‌زمینه رنگ ثانویه */
+
   --color-destructive: hsl(0, 100%, 50%); /* رنگ تخریبی */
   --color-destructive-foreground: hsl(0, 0%, 100%); /* پیش‌زمینه رنگ تخریبی */
+
   --color-success: hsl(120, 50%, 40%); /* رنگ موفقیت */
   --color-success-foreground: hsl(0, 0%, 100%); /* پیش‌زمینه رنگ موفقیت */
+
   --color-info: hsl(200, 80%, 50%); /* رنگ اطلاعات */
   --color-info-foreground: hsl(0, 0%, 100%); /* پیش‌زمینه رنگ اطلاعات */
+
   --color-warning: hsl(45, 90%, 60%); /* رنگ هشدار */
   --color-warning-foreground: hsl(0, 0%, 100%); /* پیش‌زمینه رنگ هشدار */
+
   --color-dark: hsl(240, 5%, 20%); /* رنگ تاریک */
+
   --color-muted: hsl(240, 10%, 60%); /* رنگ محو */
   --color-muted-foreground: hsl(0, 0%, 100%); /* پیش‌زمینه رنگ محو */
+
   --color-accent: hsl(255, 100%, 40%); /* رنگ اکسن */
   --color-accent-foreground: hsl(0, 0%, 100%); /* پیش‌زمینه رنگ اکسن */
+
   --color-radius: 8px; /* شعاع مرز */
 }

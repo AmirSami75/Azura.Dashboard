@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Input from "@/components/ui/Input";
-import SubmitButton from "@/components/ui/SubmitButton";
+import Button from "@/components/ui/SubmitButton";
 import { loginUserService } from "@/app/api/auth/auth";
 import {
   LoginValidation,
@@ -71,7 +71,7 @@ const LoginPage = () => {
     <form
       noValidate
       onSubmit={handleSubmit(handleLogin)}
-      className="bg-white px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
+      className="bg-primary-foreground px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
     >
       <h2 className="text-center text-2xl py-4">ورود به حساب کاربری</h2>
       <Input
@@ -89,10 +89,15 @@ const LoginPage = () => {
         register={register("password")}
         error={errors.password?.message}
       />
-      <Link href={""} className="text-red-500 text-sm ">
+      <Link href={""} className="text-destructive text-sm ">
         فراموشی رمز عبور
       </Link>
-      <SubmitButton textButton="ورود" />
+      <Button
+        textButton="ورود"
+        bgColor={"secondary"}
+        type={"submit"}
+        textColor={"secondary-foreground"}
+      />
     </form>
   );
 };

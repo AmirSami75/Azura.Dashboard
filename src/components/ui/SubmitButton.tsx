@@ -1,16 +1,24 @@
 type SubmitButtonProps = {
   textButton: string;
+  bgColor: string;
+  textColor: string;
+  type: "submit" | "reset";
 };
 
-const SubmitButton = ({ textButton }: SubmitButtonProps) => {
+const Button = ({
+  textButton,
+  bgColor,
+  textColor,
+  type,
+}: SubmitButtonProps) => {
   return (
     <button
-      type="submit"
-      className="w-full bg-green-600 shadow rounded-lg px-3 py-2 text-white my-3 hover:bg-green-700 duration-500 cursor-pointer"
+      type={type}
+      className={`w-full bg-${bgColor}   text-${textColor} shadow-2xl rounded-lg px-3 py-2  my-3  duration-500 cursor-pointer`}
     >
       {textButton}
     </button>
   );
 };
 
-export default SubmitButton;
+export default Button;

@@ -18,7 +18,7 @@ export default function MainLayout({
         />
       </div>
       {/* content */}
-      <div className=" absolute inset-0 bg-white/40 flex justify-center items-center h-full xl:static  xl:w-1/2">
+      <div className=" absolute inset-0 bg-primary-foreground/40 flex justify-center items-center h-full xl:static  xl:w-1/2">
         {children}
       </div>
     </div>

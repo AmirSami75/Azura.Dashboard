@@ -2,7 +2,7 @@
 
 import Input from "@/components/ui/Input";
 import { changePassService } from "@/app/api/auth/auth";
-import SubmitButton from "@/components/ui/SubmitButton";
+import Button from "@/components/ui/SubmitButton";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -69,7 +69,7 @@ const ChangePassPage = () => {
   return (
     <form
       onSubmit={handleSubmit(handleChangePass)}
-      className="bg-white px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
+      className="bg-primary-foreground text-primary px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
     >
       <h2 className="text-center text-2xl py-4">ورود به حساب کاربری</h2>
       <Input
@@ -93,7 +93,12 @@ const ChangePassPage = () => {
         register={register("confirmNewPass")}
         error={errors.confirmNewPass?.message}
       />
-      <SubmitButton textButton="تغییر رمز عبور" />
+      <Button
+        textButton="تغییر رمز عبور"
+        bgColor={"secondary"}
+        type={"submit"}
+        textColor={"secondary-foreground"}
+      />
     </form>
   );
 };
