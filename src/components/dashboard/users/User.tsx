@@ -43,23 +43,23 @@ const User = ({ user }: UserComponentProps) => {
   }, []);
 
   return (
-    <tr className="hover:bg-gray-50 transition bg-primary">
+    <tr className="group hover:bg-gray-100 transition bg-primary-foreground">
       <td className=" px-4 py-2">{user.fullName}</td>
       <td className=" px-4 py-2">{user.roles[0]?.name}</td>
       <td className=" px-4 py-2">{user.roles[0]?.title}</td>
-      <td className=" bg-red-300 text-xl  ">
+      <td className="text-xl">
         <span className="flex justify-center">
           {user.isActive ? <TbLockOpen2 /> : <TbLock />}
         </span>
       </td>
       <td className=" flex justify-center ">
-        <Button asChild size="icon" className="rounded-full">
+        <Button asChild size="icon" className="rounded-full text-2xl">
           <Link href={"/users/read"}>
             <CiRead />
           </Link>
         </Button>
 
-        <Button asChild size="icon" className="rounded-full">
+        <Button asChild size="icon" className="rounded-full text-2xl">
           <Link href="/users/edit">
             <CiEdit />
           </Link>
@@ -68,7 +68,7 @@ const User = ({ user }: UserComponentProps) => {
         <Button
           onClick={() => handleDeleteUser(user.id)}
           size="icon"
-          className="rounded-full"
+          className="rounded-full text-2xl"
         >
           <CiCircleRemove />
         </Button>

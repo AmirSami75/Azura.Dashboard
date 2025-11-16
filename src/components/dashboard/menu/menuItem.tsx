@@ -14,56 +14,46 @@ interface MenuItemProps {
 }
 
 const MenuItem: FC<MenuItemProps> = ({ item, setCollapsed }) => {
-  const [displayChildrenItems, setDisplayChildrenItems] = useState<{
-    [key: string]: boolean;
-  }>({});
-
+  const [open, setOpen] = useState(false);
   const { width } = useViewportSize();
 
-  const handleToggleChildren = (itemLabel: string) => {
-    setDisplayChildrenItems((prev: any) => ({
-      ...prev,
-      [itemLabel]: !prev[itemLabel],
-    }));
+  const handleToggle = () => {
+    if (hasChildren) setOpen(!open);
   };
 
+  const hasChildren = item.children && item.children.length > 0;
+
   return (
-    <li className=" text-gray-500 font-medium text-sm cursor-pointer">
+    <li className=" text-primary font-medium text-sm cursor-pointer">
       <div
-        className="flex justify-between  rounded-lg hover:bg-gray-100 hover:text-gray-700 hover:shadow-sm"
-        onClick={() => handleToggleChildren(item.label)}
+        className="flex justify-between rounded-lg hover:bg-gray-100 hover:shadow-sm"
+        onClick={handleToggle}
         style={{
-          backgroundColor:
-            item &&
-            item.children &&
-            item.children.length > 0 &&
-            displayChildrenItems[item.label]
-              ? "#e5e7eb"
-              : "",
+          backgroundColor: hasChildren && open ? "#e5e7eb" : "",
         }}
       >
-        <Link
-          className="text-sm font-medium px-4 py-3 flex-none"
-          href={item.to}
-          onClick={() => (width < 1024 ? setCollapsed(false) : null)}
-        >
-          {item.label}
-        </Link>
-        {item && item.children && item.children.length > 0 ? (
+        {!hasChildren && (
+          <Link
+            className=" px-4 py-3 flex-none"
+            href={item.to}
+            onClick={() => width < 1024 && setCollapsed(false)}
+          >
+            {item.label}
+          </Link>
+        )}
+
+        {hasChildren && (
+          <div className=" px-4 py-3 flex-none">{item.label}</div>
+        )}
+
+        {hasChildren && (
           <span className="flex items-center justify-end  flex-1 px-2">
-            {displayChildrenItems[item.label] ? (
-              <IoIosArrowUp />
-            ) : (
-              <IoIosArrowDown />
-            )}
+            {open ? <IoIosArrowUp /> : <IoIosArrowDown />}
           </span>
-        ) : null}
+        )}
       </div>
 
-      {item &&
-      item.children &&
-      item.children.length > 0 &&
-      displayChildrenItems[item.label] ? (
+      {hasChildren && open ? (
         <div className="pl-4 ">
           <MenuList list={item.children} setCollapsed={setCollapsed} />
         </div>
