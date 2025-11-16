@@ -5,7 +5,7 @@ import type { NextRequest } from "next/server";
 export function middleware(req: NextRequest) {
   // 1. گرفتن توکن از کوکی
   const token = req.cookies.get("token")?.value;
-  console.log(token);
+  // console.log(token);
 
   // 2. مسیر فعلی
   const { pathname } = req.nextUrl;

@@ -76,7 +76,7 @@ export const changePassService = async (
   }
 };
 
-export const getAllUsers = async (token: string) => {
+export const getAllUsers = async (token: string): Promise<ApiResponse> => {
   const url = `${URL_SERVER}/user`;
   // debugger;
   console.log(token);
@@ -130,7 +130,10 @@ export const getRolesService = async (token: string): Promise<ApiResponse> => {
   }
 };
 
-export const getUserService = async (token: string, id: string) => {
+export const getUserService = async (
+  token: string,
+  id: string
+): Promise<ApiResponse> => {
   const url = `${URL_SERVER}/user/${id}`;
   // debugger;
   console.log(token);
@@ -159,7 +162,10 @@ export const getUserService = async (token: string, id: string) => {
   }
 };
 
-export const deleteUserService = async (token: string, id: string) => {
+export const deleteUserService = async (
+  token: string,
+  id: string
+): Promise<ApiResponse> => {
   const url = `${URL_SERVER}/user/${id}`;
   // debugger;
   // console.log(token);

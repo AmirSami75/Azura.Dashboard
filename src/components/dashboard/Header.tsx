@@ -30,7 +30,7 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
         {/* darkmode icon */}
         <DarkmodeButton />
       </div>
-      <div className="bg-primary text-primary-foreground p-4">hi </div>
+      <div className="bg-primary-foreground text-primary p-4">hi </div>
     </div>
   );
 };
