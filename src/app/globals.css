@@ -38,3 +38,7 @@ body {
 
   --color-radius: 8px; /* شعاع مرز */
 }
+
+.container {
+  @apply px-4 py-6 overflow-hidden bg-primary-foreground text-primary shadow rounded-xl;
+}

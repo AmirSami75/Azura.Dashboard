@@ -1,5 +1,3 @@
-import { IoIosMore } from "react-icons/io";
-
 import { UserProps } from "@/models/users/User";
 import { TbLock } from "react-icons/tb";
 import { TbLockOpen2 } from "react-icons/tb";
@@ -43,10 +41,10 @@ const User = ({ user }: UserComponentProps) => {
   }, []);
 
   return (
-    <tr className="group hover:bg-gray-100 transition bg-primary-foreground">
-      <td className=" px-4 py-2">{user.fullName}</td>
-      <td className=" px-4 py-2">{user.roles[0]?.name}</td>
-      <td className=" px-4 py-2">{user.roles[0]?.title}</td>
+    <tr className="group hover:bg-gray-100 transition bg-primary-foreground ">
+      <td className=" px-4 py-3">{user.fullName}</td>
+      <td className=" px-4 py-3">{user.roles[0]?.name}</td>
+      <td className=" px-4 py-3">{user.roles[0]?.title}</td>
       <td className="text-xl">
         <span className="flex justify-center">
           {user.isActive ? <TbLockOpen2 /> : <TbLock />}

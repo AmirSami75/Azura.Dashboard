@@ -49,7 +49,7 @@ const AddUser: React.FC = () => {
     const res = await addUserService(token, data);
     console.log(res);
     if (res.isSuccess) {
-      router.push("/dashboard");
+      router.push("/dashboard/users");
     } else alert(res.message);
     // ریست فرم در صورت نیاز
     reset();
@@ -125,15 +125,6 @@ const AddUser: React.FC = () => {
           register={register("email")}
           error={errors.email?.message}
         />
-        <input
-          type="hidden"
-          {...register("branchId")}
-          value="00000000-0000-0000-0000-000000000000"
-        />
-        <input type="hidden" {...register("id")} value="" />
-        <input type="hidden" {...register("personelCode")} value="" />
-        <input type="hidden" {...register("parentId")} value="" />
-
         <input
           type="hidden"
           {...register("roles.0.id")}

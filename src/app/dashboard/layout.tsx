@@ -25,9 +25,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <Header collapsed={collapsed} setCollapsed={setCollapsed} />
         </header>
         {/* page.tsx component */}
-        <main className="p-4 bg-primary-foreground text-primary m-4 shadow rounded-xl">
-          {children}
-        </main>
+        <main className=" m-4">{children}</main>
       </div>
     </div>
   );
