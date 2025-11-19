@@ -10,7 +10,7 @@ import useViewportSize from "@/hooks/useViewportSize";
 
 interface MenuItemProps {
   item: MenuDataProps;
-  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  setCollapsed: (value: boolean) => void;
 }
 
 const MenuItem: FC<MenuItemProps> = ({ item, setCollapsed }) => {

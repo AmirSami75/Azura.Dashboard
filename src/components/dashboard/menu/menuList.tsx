@@ -5,7 +5,7 @@ import { MenuDataProps } from "@/data/menuData";
 
 interface MenuListProps {
   list?: MenuDataProps[];
-  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  setCollapsed: (value: boolean) => void;
 }
 
 const MenuList: FC<MenuListProps> = ({ list = [], setCollapsed }) => {

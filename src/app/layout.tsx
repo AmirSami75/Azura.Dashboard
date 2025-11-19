@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Vazirmatn } from "next/font/google";
 import localFont from "next/font/local";
+import ThemeProvider from "@/components/ThemeProvider";
 
 const vazir = Vazirmatn({
   subsets: ["arabic", "latin"],
@@ -31,7 +32,9 @@ export default function RootLayout({
       dir="rtl"
       className={`${iranSans.variable} ${vazir.variable}`}
     >
-      <body className="w-full h-screen">{children}</body>
+      <body className="w-full h-screen">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

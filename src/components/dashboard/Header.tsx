@@ -4,10 +4,10 @@ import useViewportSize from "@/hooks/useViewportSize";
 
 type HeaderProps = {
   collapsed: boolean;
-  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  onToggleSidebar: () => void;
 };
 
-const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
+const Header = ({ collapsed, onToggleSidebar }: HeaderProps) => {
   const { width } = useViewportSize();
 
   return (
@@ -15,7 +15,7 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
       {/* right part */}
       <div>
         <CiMenuFries
-          onClick={() => setCollapsed((prev) => !prev)}
+          onClick={onToggleSidebar}
           className={`text-2xl font-extrabold  ${
             width > 1024 ? "hidden" : "null"
           }`}

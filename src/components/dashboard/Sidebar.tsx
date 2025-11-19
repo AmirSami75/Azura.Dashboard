@@ -9,10 +9,15 @@ import useViewportSize from "@/hooks/useViewportSize";
 
 type SidebarProps = {
   collapsed: boolean;
-  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  setCollapsed: (value: boolean) => void;
+  onToggleSidebar: () => void;
 };
 
-const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
+const Sidebar = ({
+  collapsed,
+  setCollapsed,
+  onToggleSidebar,
+}: SidebarProps) => {
   const { width } = useViewportSize();
 
   //برای زمانی که سایت بار رو در حالت های کوچک تر میبندی وقتی صفحه رو بزرگ تر می کنی خود به خود باز بشه که صفحه زیبا باشه
@@ -41,7 +46,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
               className={`text-xl ${width > 1024 ? "hidden" : "null"}`}
               onClick={(e) => {
                 e.preventDefault();
-                setCollapsed((prev) => !prev);
+                onToggleSidebar;
               }}
             />
           </div>
