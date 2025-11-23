@@ -29,10 +29,10 @@ export const addUserService = async (
       message: res.message || "delete user successful",
     };
   } catch (err: any) {
-    console.log(err);
+    // console.log(err);
 
     const message =
-      err.response?.data?.message || err.message || "delete user failed";
+      err.response?.data?.Message || err.message || "delete user failed";
     return {
       isSuccess: err.isSuccess || false,
       data: null,

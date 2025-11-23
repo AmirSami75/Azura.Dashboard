@@ -1,5 +1,6 @@
 "use client";
 
+import AuthProvider from "@/components/AuthProvider";
 import Header from "@/components/dashboard/Header";
 import Sidebar from "@/components/dashboard/Sidebar";
 import { useUIstore } from "@/store/ui-store";
@@ -15,6 +16,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="flex min-h-screen">
+      {/* برای گرفتن توکن از api  و در دسترس بودن در کل سایت  */}
+      <AuthProvider />
       {/* sidebar component */}
       <div className="flex-none">
         <Sidebar

@@ -1,19 +1,21 @@
 "use client";
 
-import Input from "@/components/ui/Input";
-import { changePassService } from "@/app/api/auth/auth";
-import Button from "@/components/ui/SubmitButton";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { changePassService } from "@/app/api/auth/auth";
 import {
   ChangepassValidation,
   ChangepassValidationType,
 } from "@/lib/validation/changepassValidation";
+import useAuthStore from "@/store/auth-store";
+
+import Button from "@/components/ui/SubmitButton";
+import Input from "@/components/ui/Input";
 
 const ChangePassPage = () => {
-  const [token, setToken] = useState("");
+  const token = useAuthStore((state) => state.token);
 
   const router = useRouter();
 
@@ -32,39 +34,20 @@ const ChangePassPage = () => {
 
   // وقتی کاربر روی دکمه تغییر رمز عبور کلیک می کنه این فاکنشن کال میشه
   const handleChangePass = async (data: ChangepassValidationType) => {
-    // debugger;
-
     try {
-      const res = await changePassService(data, token);
-      if (!res.isSuccess) {
-        alert(res.message);
-        // router.push("/login");
-      } else {
-        router.push("/dashboard");
+      if (token) {
+        const res = await changePassService(data, token);
+        if (!res.isSuccess) {
+          alert(res.message);
+          // router.push("/login");
+        } else {
+          router.push("/dashboard");
+        }
       }
     } catch (e: any) {
       console.log(e.message);
     }
   };
-
-  // برای دریافت توکن از کوکی در زمان ورود به صفحه
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await fetch("../../api/auth/get-token", {
-          method: "GET",
-          credentials: "include",
-        });
-        const data = await res.json();
-        // console.log(data);
-        const jwtToken = data.token;
-        setToken(jwtToken);
-      } catch (err: any) {
-        console.log("خطا در بررسی توکن :", err.message);
-      }
-    };
-    checkAuth();
-  }, []);
 
   return (
     <form

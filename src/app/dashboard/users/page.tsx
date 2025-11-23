@@ -8,35 +8,29 @@ import { getAllUsers } from "@/app/api/auth/auth";
 import User from "@/components/dashboard/users/User";
 import { UserProps } from "@/models/users/User";
 import { Button } from "@/components/ui/Button";
+import useAuthStore from "@/store/auth-store";
 
 const Users: React.FC = () => {
   const [users, setUsers] = useState<UserProps[]>([]);
+  const token = useAuthStore((state) => state.token);
 
-  // دریافت توکن و درخواست برای دریافت تمامی کاربران از ای پی ای
+  // درخواست برای دریافت تمامی کاربران از ای پی ای
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const tokenRes = await fetch("../../api/auth/get-token", {
-          method: "GET",
-          credentials: "include",
-        });
-        const data = await tokenRes.json();
-        const token = data.token;
-        if (!token) return;
-
-        const usersRes = await getAllUsers(token);
-        console.log(usersRes);
-        if (usersRes.isSuccess) {
-          setUsers(usersRes.data);
-          console.log("دریافت کاربران:", usersRes.message);
+        if (token) {
+          const usersRes = await getAllUsers(token);
+          if (usersRes.isSuccess) {
+            setUsers(usersRes.data);
+            console.log("دریافت کاربران:", usersRes.message);
+          }
         }
       } catch (err: any) {
         console.error("خطا در دریافت کاربران:", err.message);
       }
     };
-
     fetchData();
-  }, []);
+  }, [token]);
 
   return (
     <>

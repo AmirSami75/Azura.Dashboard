@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Input from "@/components/ui/Input";
@@ -13,9 +12,11 @@ import {
   addUserValidation,
   AddUserValidationType,
 } from "@/lib/validation/addUserValidation";
-import { getUserService } from "@/app/api/auth/auth";
+import useAuthStore from "@/store/auth-store";
 
 const EditUser: React.FC = () => {
+  const token = useAuthStore((state) => state.token);
+
   const {
     register,
     handleSubmit,
@@ -24,17 +25,13 @@ const EditUser: React.FC = () => {
   } = useForm<AddUserValidationType>({
     resolver: zodResolver(addUserValidation),
     defaultValues: {
-      branchId: "",
-      mobile: 0,
-      id: "",
+      mobile: "0",
       fullName: "",
       userName: "",
       phone: "",
-      personelCode: "",
       address: "",
       email: "",
-      parentId: "",
-      role: "ویرایشگر",
+      role: ["ویرایشگر"],
     },
   });
 
@@ -43,29 +40,6 @@ const EditUser: React.FC = () => {
   const handleEditUser = async (data: AddUserValidationType) => {
     console.log("فرم ویراش شد: ", data);
   };
-
-  // برای دریافت توکن از کوکی در زمان ورود به صفحه
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // دریافت توکن از کوکی
-        const tokenRes = await fetch("../../api/auth/get-token", {
-          method: "GET",
-          credentials: "include",
-        });
-
-        const tokenData = await tokenRes.json();
-        const token = tokenData.token;
-        console.log(token);
-
-        const id = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
-        const userRes = await getUserService(token, id);
-      } catch (err: any) {
-        alert(`خطا در بررسی توکن :${err.message}`);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <div>

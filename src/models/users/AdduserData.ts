@@ -1,4 +1,6 @@
 export type addUserData = {
+  branchId?: string;
+  id?: string;
   mobile: string;
   fullName: string;
   userName: string;

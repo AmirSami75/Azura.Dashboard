@@ -9,6 +9,10 @@ body {
   @apply bg-gray-200  text-gray-600;
 }
 
+.dark body {
+  @apply bg-gray-600 text-gray-200;
+}
+
 @theme {
   --color-primary: hsl(240, 5%, 45%); /* رنگ اصلی */
   --color-primary-foreground: hsl(0, 0%, 100%); /* پیش‌زمینه رنگ اصلی */

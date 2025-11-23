@@ -46,7 +46,7 @@ const Sidebar = ({
               className={`text-xl ${width > 1024 ? "hidden" : "null"}`}
               onClick={(e) => {
                 e.preventDefault();
-                onToggleSidebar;
+                onToggleSidebar();
               }}
             />
           </div>

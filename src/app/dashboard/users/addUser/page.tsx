@@ -13,11 +13,10 @@ import {
   AddUserValidationType,
 } from "@/lib/validation/addUserValidation";
 import { addUserService } from "@/app/api/auth/user";
+import useAuthStore from "@/store/auth-store";
 
 const AddUser: React.FC = () => {
-  // const [roles, setRoles] = useState<string[]>([]);
-  const [token, setToken] = useState<string>("");
-
+  const token = useAuthStore((state) => state.token);
   const {
     register,
     handleSubmit,
@@ -26,16 +25,12 @@ const AddUser: React.FC = () => {
   } = useForm<AddUserValidationType>({
     resolver: zodResolver(addUserValidation),
     defaultValues: {
-      branchId: "",
       mobile: "",
-      id: "",
       fullName: "",
       userName: "",
       phone: "",
-      personelCode: "",
       address: "",
       email: "",
-      parentId: "",
       roles: [],
     },
   });
@@ -44,41 +39,20 @@ const AddUser: React.FC = () => {
 
   const handleAddNewUser = async (data: AddUserValidationType) => {
     // دیتا از zod عبور کرده و ولیدیشن ان چک شده است
-    console.log("فرم ارسال شد ", data);
-
-    const res = await addUserService(token, data);
-    console.log(res);
-    if (res.isSuccess) {
-      router.push("/dashboard/users");
-    } else alert(res.message);
-    // ریست فرم در صورت نیاز
-    reset();
+    // console.log("فرم ارسال شد ", data);
+    debugger;
+    if (token) {
+      const res = await addUserService(token, data);
+      console.log(res);
+      if (res.isSuccess) {
+        router.push("/dashboard/users");
+      } else alert(res.message);
+      // ریست فرم در صورت نیاز
+      reset();
+    }
   };
 
-  // برای دریافت توکن از کوکی در زمان ورود به صفحه
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // دریافت توکن از کوکی
-        const tokenRes = await fetch("/api/auth/get-token", {
-          method: "GET",
-          credentials: "include",
-        });
-        // console.log(tokenRes);
-        const tokenData = await tokenRes.json();
-        setToken(tokenData.token);
-        // console.log(token);
-        // دریاقت نقش ها از api
-        // const rolesRes = await getRolesService(token);
-        // const  = await rolesRes.json()
-        // console.log(rolesRes);
-      } catch (err: any) {
-        alert(`خطا در بررسی توکن :${err.message}`);
-      }
-    };
-    fetchData();
-  }, []);
-  console.log("errors:", errors);
+  // console.log("errors:", errors);
 
   return (
     <div>
@@ -130,17 +104,6 @@ const AddUser: React.FC = () => {
           {...register("roles.0.id")}
           value="019a0736-3548-7710-87d3-3120133ea7bf"
         />
-        {/* <SelectInput
-        control={control},
-  name="roles",
-  label="نقش کاربر ",
-  options,
-  multiple = false,
-  error,
-        
-        
-        /> */}
-
         <Button
           textButton="افزودن کاربر"
           bgColor={"secondary"}

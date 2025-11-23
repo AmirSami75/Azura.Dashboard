@@ -1,12 +1,15 @@
-import { UserProps } from "@/models/users/User";
 import { TbLock } from "react-icons/tb";
-import { TbLockOpen2 } from "react-icons/tb";
 import { CiRead } from "react-icons/ci";
 import { CiEdit } from "react-icons/ci";
+import { TbLockOpen2 } from "react-icons/tb";
 import { CiCircleRemove } from "react-icons/ci";
-import { Button } from "@/components/ui/Button";
+
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import useAuthStore from "@/store/auth-store";
+import { UserProps } from "@/models/users/User";
+import { Button } from "@/components/ui/Button";
 import { deleteUserService } from "@/app/api/auth/auth";
 
 type UserComponentProps = {
@@ -14,31 +17,23 @@ type UserComponentProps = {
 };
 
 const User = ({ user }: UserComponentProps) => {
-  const [token, setToken] = useState("");
+  const token = useAuthStore((state) => state.token);
+
+  const router = useRouter();
 
   const handleDeleteUser = async (id: string) => {
-    const res = await deleteUserService(token, id);
-    console.log(res);
-  };
-
-  // برای دریافت توکن از کوکی در زمان ورود به صفحه
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await fetch("../../api/auth/get-token", {
-          method: "GET",
-          credentials: "include",
-        });
-        const data = await res.json();
-        // console.log(data);
-        const jwtToken = data.token;
-        setToken(jwtToken);
-      } catch (err: any) {
-        console.log("خطا در بررسی توکن :", err.message);
+    try {
+      if (token) {
+        const res = await deleteUserService(token, id);
+        router.refresh();
+        if (!res.isSuccess) {
+          console.error("delete failed");
+        }
       }
-    };
-    checkAuth();
-  }, []);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   return (
     <tr className="group hover:bg-gray-100 transition bg-primary-foreground ">

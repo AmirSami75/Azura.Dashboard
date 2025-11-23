@@ -6,7 +6,7 @@ const DarkmodeButton = () => {
   const toggleTheme = useUIstore((state) => state.toggleTheme);
 
   const handleDarkmode = () => {
-    toggleTheme;
+    toggleTheme();
   };
 
   return (

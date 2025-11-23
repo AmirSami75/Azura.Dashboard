@@ -1,3 +1,5 @@
+"use client";
+
 import { useUIstore } from "@/store/ui-store";
 import { useEffect } from "react";
 
