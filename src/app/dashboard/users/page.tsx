@@ -30,7 +30,7 @@ const Users: React.FC = () => {
       }
     };
     fetchData();
-  }, [token]);
+  }, [token, users]);
 
   return (
     <>
