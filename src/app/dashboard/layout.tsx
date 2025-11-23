@@ -28,16 +28,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       </div>
 
       {/* main content */}
-      <div className="flex-1 xl:mr-[228px]">
+      <div className="flex-1 xl:mr-[228px] flex flex-col min-h-screen">
         {/* header component */}
-        <header className="p-7 shadow bg-primary-foreground text-primary">
+        <header className="p-3 shadow bg-primary-foreground text-primary flex-none">
           <Header
             collapsed={sidebarCollapsed}
             onToggleSidebar={toggleSidebar}
           />
         </header>
         {/* page.tsx component */}
-        <main className=" m-4">{children}</main>
+        <main className="m-4 flex-1 overflow-auto">{children}</main>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Link from "next/link";
 
-import { getAllUsers } from "@/app/api/auth/auth";
+import { getAllUsers } from "@/app/api/auth/user";
 import User from "@/components/dashboard/users/User";
 import { UserProps } from "@/models/users/User";
 import { Button } from "@/components/ui/Button";
@@ -22,15 +22,15 @@ const Users: React.FC = () => {
           const usersRes = await getAllUsers(token);
           if (usersRes.isSuccess) {
             setUsers(usersRes.data);
-            console.log("دریافت کاربران:", usersRes.message);
+            console.log("دریافت  همه کاربران:", usersRes.message);
           }
         }
       } catch (err: any) {
-        console.error("خطا در دریافت کاربران:", err.message);
+        console.error("خطا در دریافت  همه کاربران:", err.message);
       }
     };
     fetchData();
-  }, [token, users]);
+  }, [token]);
 
   return (
     <>

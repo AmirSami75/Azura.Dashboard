@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/auth-store";
 import { UserProps } from "@/models/users/User";
 import { Button } from "@/components/ui/Button";
-import { deleteUserService } from "@/app/api/auth/auth";
+import { deleteUserService } from "@/app/api/auth/user";
 
 type UserComponentProps = {
   user: UserProps;
@@ -46,20 +46,31 @@ const User = ({ user }: UserComponentProps) => {
         </span>
       </td>
       <td className=" flex justify-center ">
-        <Button asChild size="icon" className="rounded-full text-2xl">
+        <Button
+          asChild
+          title="مشاهده کاربر"
+          size="icon"
+          className="rounded-full text-2xl"
+        >
           <Link href={"/users/read"}>
             <CiRead />
           </Link>
         </Button>
 
-        <Button asChild size="icon" className="rounded-full text-2xl">
-          <Link href="/users/edit">
+        <Button
+          asChild
+          title="ویرایش کاربر"
+          size="icon"
+          className="rounded-full text-2xl"
+        >
+          <Link href={`/dashboard/users/${user.id}/edit`}>
             <CiEdit />
           </Link>
         </Button>
 
         <Button
           onClick={() => handleDeleteUser(user.id)}
+          title="حذف کاربر"
           size="icon"
           className="rounded-full text-2xl"
         >

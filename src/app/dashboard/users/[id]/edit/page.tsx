@@ -1,55 +1,90 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/SubmitButton";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Input from "@/components/ui/Input";
-import Button from "@/components/ui/SubmitButton";
 import {
   addUserValidation,
   AddUserValidationType,
 } from "@/lib/validation/addUserValidation";
-import { addUserService } from "@/app/api/auth/user";
 import useAuthStore from "@/store/auth-store";
+import { useEffect, useMemo } from "react";
+import { getUserService } from "@/app/api/auth/user";
+import { editUserService } from "@/app/api/auth/user";
 
-const AddUser: React.FC = () => {
+const EditUser = () => {
   const token = useAuthStore((state) => state.token);
+
+  const params = useParams();
   const router = useRouter();
+
+  const id = useMemo(() => {
+    const raw = params.id;
+    if (!raw) {
+      return undefined;
+    }
+    return Array.isArray(raw) ? raw[0] : raw;
+  }, [params.id]);
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
+    reset,
   } = useForm<AddUserValidationType>({
     resolver: zodResolver(addUserValidation),
     defaultValues: {},
   });
 
-  const handleAddNewUser = async (data: AddUserValidationType) => {
-    // دیتا از zod عبور کرده و ولیدیشن ان چک شده است
-    // console.log("فرم ارسال شد ", data);
-    if (token) {
-      const res = await addUserService(token, data);
-      if (res.isSuccess) {
-        console.log("اضافه کردن کاربر جدید:", res);
-        router.push("/dashboard/users");
-      } else alert(res.message);
-      // ریست فرم در صورت نیاز
-      reset();
+  const handleEditUser = async (data: AddUserValidationType) => {
+    try {
+      if (token && id) {
+        const res = await editUserService(token, data, id);
+        if (!res.isSuccess) {
+          alert(res.message);
+        } else {
+          router.push("/dashboard/users");
+        }
+      }
+    } catch (err: any) {
+      alert(err.message);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (token && id) {
+          const { data } = await getUserService(token, id);
+          reset({
+            userName: data.userName,
+            fullName: data.fullName,
+            mobile: data.mobile ?? "0",
+            phone: data.phone ?? "",
+            address: data.address ?? "",
+            email: data.email ?? "",
+            roles: data.roles ?? [{ id: "ویرایشگر" }],
+          });
+        }
+      } catch (err: any) {
+        console.log("دریافت اطلاعات کاربر با ای دی : ", err);
+      }
+    };
+    fetchData();
+  }, [token, id, reset]);
 
   return (
     <div>
       {/* novalidation:  مرورگر را از ولیدیشن داخلی بازمیداره */}
       <form
         noValidate
-        onSubmit={handleSubmit(handleAddNewUser)}
-        className="bg-primary-foreground px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
+        onSubmit={handleSubmit(handleEditUser)}
+        className="bg-white px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
       >
         <h2 className="text-center text-2xl py-4">افزودن کاربر جدید</h2>
         <Input
@@ -93,8 +128,9 @@ const AddUser: React.FC = () => {
           {...register("roles.0.id")}
           value="019a0736-3548-7710-87d3-3120133ea7bf"
         />
+
         <Button
-          textButton="افزودن کاربر"
+          textButton="ویرایش کاربر"
           bgColor={"secondary"}
           type="submit"
           textColor={"secondary-foreground"}
@@ -104,4 +140,4 @@ const AddUser: React.FC = () => {
   );
 };
 
-export default AddUser;
+export default EditUser;

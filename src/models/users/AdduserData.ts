@@ -1,4 +1,4 @@
-export type addUserData = {
+export type userDataProps = {
   branchId?: string;
   id?: string;
   mobile: string;
