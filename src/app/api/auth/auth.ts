@@ -34,13 +34,10 @@ export const loginUserService = async (
   } catch (err: any) {
     const errData = err.response?.data;
     // console.log(errData);
-
-    // console.log(errData);
     return {
       isSuccess: errData.IsSuccess,
       data: null,
       statusCode: errData.StatusCode,
-      // message,
       message: errData?.Message,
     };
   }

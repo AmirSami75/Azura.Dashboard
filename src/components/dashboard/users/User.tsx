@@ -11,6 +11,7 @@ import useAuthStore from "@/store/auth-store";
 import { UserProps } from "@/models/users/User";
 import { Button } from "@/components/ui/Button";
 import { deleteUserService } from "@/app/api/auth/user";
+import { Span } from "next/dist/trace";
 
 type UserComponentProps = {
   user: UserProps;
@@ -37,22 +38,31 @@ const User = ({ user }: UserComponentProps) => {
 
   return (
     <tr className="group hover:bg-gray-100 transition bg-primary-foreground ">
-      <td className=" px-4 py-3">{user.fullName}</td>
-      <td className=" px-4 py-3">{user.roles[0]?.name}</td>
-      <td className=" px-4 py-3">{user.roles[0]?.title}</td>
+      <td className=" px-4 py-4">{user.fullName}</td>
+      <td className=" px-4 py-4">{user.roles[0]?.name}</td>
+      <td className=" px-4 py-4">{user.roles[0]?.title}</td>
       <td className="text-xl">
         <span className="flex justify-center">
-          {user.isActive ? <TbLockOpen2 /> : <TbLock />}
+          {user.isActive ? (
+            <span className="text-secondary">
+              <TbLockOpen2 />
+            </span>
+          ) : (
+            <span className="text-destructive">
+              <TbLock />
+            </span>
+          )}
         </span>
       </td>
-      <td className=" flex justify-center ">
+      <td className=" flex justify-center gap-x-2 mt-2 ">
         <Button
           asChild
           title="مشاهده کاربر"
           size="icon"
           className="rounded-full text-2xl"
+          color="warning"
         >
-          <Link href={"/users/read"}>
+          <Link href={`/dashboard/users/${user.id}/read`}>
             <CiRead />
           </Link>
         </Button>
@@ -62,6 +72,7 @@ const User = ({ user }: UserComponentProps) => {
           title="ویرایش کاربر"
           size="icon"
           className="rounded-full text-2xl"
+          color="secondary"
         >
           <Link href={`/dashboard/users/${user.id}/edit`}>
             <CiEdit />
@@ -73,6 +84,7 @@ const User = ({ user }: UserComponentProps) => {
           title="حذف کاربر"
           size="icon"
           className="rounded-full text-2xl"
+          color="destructive"
         >
           <CiCircleRemove />
         </Button>

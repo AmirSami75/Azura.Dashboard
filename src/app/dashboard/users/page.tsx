@@ -30,14 +30,14 @@ const Users: React.FC = () => {
       }
     };
     fetchData();
-  }, [token]);
+  }, [token, users]);
 
   return (
     <>
-      <Button asChild size="xl" color="success" className="mb-3">
+      <Button asChild size="xl" color="success" className="mb-3 rounded-xl">
         <Link href="/dashboard/users/adduser">افزودن کاربر جدید</Link>
       </Button>
-      <table className="container min-w-full divide-y divide-gray-300  text-center ">
+      <table className="container min-w-full divide-y divide-gray-300 text-center ">
         <thead className=" text-gray-700 font-bold text-md">
           <tr>
             <th className=" px-4 py-4">نام و نام خانوادگی</th>

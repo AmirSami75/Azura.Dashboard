@@ -32,7 +32,6 @@ const LoginPage = () => {
   // function when click on login button
   const handleLogin = async (data: LoginValidationType) => {
     // debugger;
-    // console.log(data);
     try {
       let res = await loginUserService(data.userName, data.password);
       // const message = JSON.parse(res);
@@ -61,7 +60,7 @@ const LoginPage = () => {
             router.push("/dashboard");
           } else router.push("/changepass");
         }
-      }
+      } else alert(res.message);
     } catch (err: any) {
       console.log(err.message);
     }
