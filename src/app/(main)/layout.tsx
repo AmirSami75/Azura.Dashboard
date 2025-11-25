@@ -11,14 +11,14 @@ export default function MainLayout({
       <div className="relative h-full w-full xl:w-1/2">
         <Image
           src="/images/login-image.jpg"
-          alt="login vector"
+          alt="background img"
           priority
           fill
-          className="object-cover"
+          className="object-cover bg-left"
         />
       </div>
       {/* content */}
-      <div className=" absolute inset-0 bg-primary-foreground/40 flex justify-center items-center h-full xl:static  xl:w-1/2">
+      <div className=" absolute inset-0 bg-primary-foreground/30 flex justify-center items-center h-full xl:static  xl:w-1/2">
         {children}
       </div>
     </div>

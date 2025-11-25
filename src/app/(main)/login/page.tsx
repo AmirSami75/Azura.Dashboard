@@ -31,16 +31,11 @@ const LoginPage = () => {
 
   // function when click on login button
   const handleLogin = async (data: LoginValidationType) => {
-    // debugger;
     try {
       let res = await loginUserService(data.userName, data.password);
-      // const message = JSON.parse(res);
-      // console.log("login user service calling : ", message.Exception);
       console.log("login user service calling : ", res.message);
-
       if (res.isSuccess) {
         const { token, requiresPasswordChange } = res.data;
-        // console.log(token, requiresPasswordChange);
 
         if (token) {
           // ذخیره توکن در کوکی
@@ -70,7 +65,7 @@ const LoginPage = () => {
     <form
       noValidate
       onSubmit={handleSubmit(handleLogin)}
-      className="bg-primary-foreground px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
+      className="backdrop-opacity-20 bg-white/50 backdrop-invert px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] xl:bg-primary-foreground flex gap-y-4 flex-col "
     >
       <h2 className="text-center text-2xl py-4">ورود به حساب کاربری</h2>
       <Input

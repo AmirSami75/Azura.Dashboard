@@ -52,7 +52,7 @@ const ChangePassPage = () => {
   return (
     <form
       onSubmit={handleSubmit(handleChangePass)}
-      className="bg-primary-foreground text-primary px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
+      className="backdrop-opacity-20 bg-white/50 backdrop-invert xl:bg-primary-foreground text-primary px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
     >
       <h2 className="text-center text-2xl py-4">ورود به حساب کاربری</h2>
       <Input

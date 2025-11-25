@@ -55,7 +55,7 @@ const User = ({ user }: UserComponentProps) => {
         </span>
       </td>
       <td className=" flex justify-center gap-x-2 mt-2 ">
-        <Button
+        {/* <Button
           asChild
           title="مشاهده کاربر"
           size="icon"
@@ -65,7 +65,7 @@ const User = ({ user }: UserComponentProps) => {
           <Link href={`/dashboard/users/${user.id}/read`}>
             <CiRead />
           </Link>
-        </Button>
+        </Button> */}
 
         <Button
           asChild

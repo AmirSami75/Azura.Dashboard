@@ -28,7 +28,7 @@ const Input: FC<InputProps> = ({
         id={nameInput}
         placeholder={placeHolder}
         {...register}
-        className={`p-2  border-1 placeholder:text-gray-500 w-full bg-white rounded-lg shadow text-sm ${
+        className={`p-2 border-1 placeholder:text-gray-500 w-full bg-white rounded-lg shadow text-sm focus-visible:border-gray-400 focus-visible:outline-none ${
           error ? "border-red-500" : "border-gray-300 "
         }`}
       />
