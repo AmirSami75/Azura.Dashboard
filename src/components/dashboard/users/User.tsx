@@ -37,14 +37,14 @@ const User = ({ user }: UserComponentProps) => {
   };
 
   return (
-    <tr className="group hover:bg-gray-100 transition bg-primary-foreground ">
+    <tr className="group ">
       <td className=" px-4 py-4">{user.fullName}</td>
       <td className=" px-4 py-4">{user.roles[0]?.name}</td>
       <td className=" px-4 py-4">{user.roles[0]?.title}</td>
       <td className="text-xl">
         <span className="flex justify-center">
           {user.isActive ? (
-            <span className="text-secondary">
+            <span className="text-success">
               <TbLockOpen2 />
             </span>
           ) : (
@@ -71,8 +71,9 @@ const User = ({ user }: UserComponentProps) => {
           asChild
           title="ویرایش کاربر"
           size="icon"
-          className="rounded-full text-2xl"
-          color="secondary"
+          variant="outline"
+          className="rounded-full text-2xl "
+          color="info"
         >
           <Link href={`/dashboard/users/${user.id}/edit`}>
             <CiEdit />
@@ -83,6 +84,7 @@ const User = ({ user }: UserComponentProps) => {
           onClick={() => handleDeleteUser(user.id)}
           title="حذف کاربر"
           size="icon"
+          variant="outline"
           className="rounded-full text-2xl"
           color="destructive"
         >

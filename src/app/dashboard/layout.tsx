@@ -30,7 +30,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* main content */}
       <div className="flex-1 xl:mr-[228px] flex flex-col min-h-screen">
         {/* header component */}
-        <header className="p-3 shadow bg-primary-foreground text-primary flex-none">
+        <header className="p-3 shadow bg-card text-card-foreground flex-none">
           <Header
             collapsed={sidebarCollapsed}
             onToggleSidebar={toggleSidebar}

@@ -7,7 +7,7 @@ type HeaderProps = {
   onToggleSidebar: () => void;
 };
 
-const Header = ({ collapsed, onToggleSidebar }: HeaderProps) => {
+const Header = ({ onToggleSidebar }: HeaderProps) => {
   const { width } = useViewportSize();
 
   return (
@@ -30,7 +30,7 @@ const Header = ({ collapsed, onToggleSidebar }: HeaderProps) => {
         {/* darkmode icon */}
         <DarkmodeButton />
       </div>
-      <div className="bg-primary-foreground text-primary p-4">hi </div>
+      <div className=" p-4">hi </div>
     </div>
   );
 };

@@ -24,13 +24,12 @@ const MenuItem: FC<MenuItemProps> = ({ item, setCollapsed }) => {
   const hasChildren = item.children && item.children.length > 0;
 
   return (
-    <li className=" text-primary font-medium text-sm cursor-pointer">
+    <li className="font-medium text-sm cursor-pointer">
       <div
-        className="flex justify-between rounded-lg hover:bg-gray-100 hover:shadow-sm"
+        className={`flex justify-between rounded-lg hover:bg-secondary hover:shadow-sm ${
+          hasChildren && open ? "bg-secondary" : ""
+        } `}
         onClick={handleToggle}
-        style={{
-          backgroundColor: hasChildren && open ? "#e5e7eb" : "",
-        }}
       >
         {!hasChildren && (
           <Link
@@ -54,7 +53,7 @@ const MenuItem: FC<MenuItemProps> = ({ item, setCollapsed }) => {
       </div>
 
       {hasChildren && open ? (
-        <div className="pl-4 ">
+        <div className="pl-4 mt-2 ">
           <MenuList list={item.children} setCollapsed={setCollapsed} />
         </div>
       ) : null}
