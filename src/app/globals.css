@@ -13,6 +13,7 @@ body {
   @apply bg-background text-default-500;
 }
 
+/* colors */
 @theme {
   --color-background: hsl(0 0% 100%);
   --color-foreground: hsl(222.2 84% 4.9%);
@@ -22,6 +23,9 @@ body {
 
   --color-border: hsl(220 13% 91%);
   --color-input: hsl(220 13% 91%);
+
+  --color-accent: 214.3 31.8% 91.4%;
+  --color-accent-foreground: 222.2 47.4% 11.2%;
 
   --color-primary: hsl(250, 92%, 70%); /* رنگ اصلی */
   --color-primary-foreground: hsl(240, 100%, 98%); /* پیش‌زمینه رنگ اصلی */

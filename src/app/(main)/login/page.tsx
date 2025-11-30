@@ -65,7 +65,7 @@ const LoginPage = () => {
     <form
       noValidate
       onSubmit={handleSubmit(handleLogin)}
-      className="backdrop-opacity-20 bg-white/50 backdrop-invert px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] xl:bg-primary-foreground flex gap-y-4 flex-col "
+      className="backdrop-opacity-20 bg-background/70 text-foreground backdrop-invert px-4 py-5 rounded-xl shadow-2xl xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
     >
       <h2 className="text-center text-2xl py-4">ورود به حساب کاربری</h2>
       <Input
@@ -88,9 +88,9 @@ const LoginPage = () => {
       </Link>
       <Button
         textButton="ورود"
-        bgColor={"secondary"}
+        bgColor={"success"}
         type={"submit"}
-        textColor={"secondary-foreground"}
+        textColor={"success-foreground"}
       />
     </form>
   );

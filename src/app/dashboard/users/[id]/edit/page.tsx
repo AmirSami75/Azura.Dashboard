@@ -84,9 +84,9 @@ const EditUser = () => {
       <form
         noValidate
         onSubmit={handleSubmit(handleEditUser)}
-        className="bg-white px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
+        className="bg-card text-card-foreground px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
       >
-        <h2 className="text-center text-2xl py-4">افزودن کاربر جدید</h2>
+        <h3 className="text-center text-2xl py-4">افزودن کاربر جدید</h3>
         <Input
           label="نام کاربری"
           type="text"
@@ -128,13 +128,14 @@ const EditUser = () => {
           {...register("roles.0.id")}
           value="019a0736-3548-7710-87d3-3120133ea7bf"
         />
-
-        <Button
-          textButton="ویرایش کاربر"
-          bgColor={"secondary"}
-          type="submit"
-          textColor={"secondary-foreground"}
-        />
+        <div className="">
+          <Button
+            textButton="ویرایش کاربر"
+            bgColor={""}
+            type="submit"
+            textColor={"secondary-foreground"}
+          />
+        </div>
       </form>
     </div>
   );

@@ -1,33 +1,31 @@
 import { TbLock } from "react-icons/tb";
-import { CiRead } from "react-icons/ci";
 import { CiEdit } from "react-icons/ci";
 import { TbLockOpen2 } from "react-icons/tb";
 import { CiCircleRemove } from "react-icons/ci";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import useAuthStore from "@/store/auth-store";
 import { UserProps } from "@/models/users/User";
 import { Button } from "@/components/ui/Button";
 import { deleteUserService } from "@/app/api/auth/user";
-import { Span } from "next/dist/trace";
 
 type UserComponentProps = {
   user: UserProps;
+  onDelete: (id: string) => void;
 };
 
-const User = ({ user }: UserComponentProps) => {
+const User = ({ user, onDelete }: UserComponentProps) => {
   const token = useAuthStore((state) => state.token);
-
-  const router = useRouter();
 
   const handleDeleteUser = async (id: string) => {
     try {
       if (token) {
         const res = await deleteUserService(token, id);
-        router.refresh();
-        if (!res.isSuccess) {
+
+        if (res.isSuccess) {
+          onDelete(id);
+        } else {
           console.error("delete failed");
         }
       }

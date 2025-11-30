@@ -16,21 +16,25 @@ const Users: React.FC = () => {
 
   // درخواست برای دریافت تمامی کاربران از ای پی ای
   useEffect(() => {
+    if (!token) return;
     const fetchData = async () => {
       try {
-        if (token) {
-          const usersRes = await getAllUsers(token);
-          if (usersRes.isSuccess) {
-            setUsers(usersRes.data);
-            console.log("دریافت  همه کاربران:", usersRes.message);
-          }
+        const usersRes = await getAllUsers(token);
+        if (usersRes.isSuccess) {
+          setUsers(usersRes.data);
+          console.log("دریافت  همه کاربران:", usersRes.message);
         }
       } catch (err: any) {
-        console.error("خطا در دریافت  همه کاربران:", err.message);
+        console.error("خطا در دریافت  همه کاربران:", err?.message);
       }
     };
     fetchData();
-  }, [token, users]);
+  }, [token]);
+
+  const handleDelete = (id: string) => {
+    setUsers((prev) => prev.filter((u) => u.id !== id));
+    console.log(users);
+  };
 
   return (
     <div className="bg-card rounded-xl text-card-foreground shadow-sm">
@@ -61,7 +65,7 @@ const Users: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-border text-sm">
                 {users.map((user) => (
-                  <User key={user.id} user={user} />
+                  <User key={user.id} user={user} onDelete={handleDelete} />
                 ))}
               </tbody>
             </table>

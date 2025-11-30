@@ -12,7 +12,7 @@ import {
   addUserValidation,
   AddUserValidationType,
 } from "@/lib/validation/addUserValidation";
-import { addUserService } from "@/app/api/auth/user";
+import { addUserService, getRolesService } from "@/app/api/auth/user";
 import useAuthStore from "@/store/auth-store";
 
 const AddUser: React.FC = () => {
@@ -43,15 +43,29 @@ const AddUser: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (token) {
+          const data = await getRolesService(token);
+          console.log(data);
+        }
+      } catch (err: any) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       {/* novalidation:  مرورگر را از ولیدیشن داخلی بازمیداره */}
       <form
         noValidate
         onSubmit={handleSubmit(handleAddNewUser)}
-        className="bg-primary-foreground px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
+        className="bg-card text-card-foreground px-4 py-5 rounded-xl shadow xl:m-4 min-w-[400px] flex gap-y-4 flex-col "
       >
-        <h2 className="text-center text-2xl py-4">افزودن کاربر جدید</h2>
+        <h3 className="text-center text-2xl py-4">افزودن کاربر جدید</h3>
         <Input
           label="نام کاربری"
           type="text"
@@ -88,6 +102,7 @@ const AddUser: React.FC = () => {
           register={register("email")}
           error={errors.email?.message}
         />
+
         <input
           type="hidden"
           {...register("roles.0.id")}
@@ -95,9 +110,9 @@ const AddUser: React.FC = () => {
         />
         <Button
           textButton="افزودن کاربر"
-          bgColor={"secondary"}
+          bgColor={"success"}
           type="submit"
-          textColor={"secondary-foreground"}
+          textColor={"success-foreground"}
         />
       </form>
     </div>

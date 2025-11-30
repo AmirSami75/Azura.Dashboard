@@ -72,28 +72,3 @@ export const changePassService = async (
     };
   }
 };
-
-export const getRolesService = async (token: string): Promise<ApiResponse> => {
-  const url = `${URL_SERVER}/role`;
-  try {
-    //? call role api
-    const { data: res } = await axios.get(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    return {
-      isSuccess: res.isSuccess ?? true,
-      data: res.data,
-      statusCode: res.statusCode,
-      message: res.message || "get roles successful",
-    };
-  } catch (err: any) {
-    const errData = err.response?.data;
-    return {
-      isSuccess: errData.IsSuccess,
-      data: null,
-      statusCode: errData.StatusCode,
-      message: errData.Message,
-    };
-  }
-};

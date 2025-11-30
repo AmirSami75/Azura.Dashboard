@@ -33,6 +33,12 @@ module.exports = {
           900: "hsl(var(--default-900) / <alpha-value>)",
           950: "hsl(var(--default-950) / <alpha-value>)",
         },
+
+        accent: {
+          DEFAULT: "hsl(var(--accent) / <alpha-value>)",
+          foreground: "hsl(var(--accent-foreground) / <alpha-value>)",
+        },
+
         card: {
           DEFAULT: "hsl(var(--card) / 1)",
           foreground: "hsl(var(--card-foreground) / 1)",
