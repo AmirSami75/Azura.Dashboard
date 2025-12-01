@@ -5,6 +5,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Slide, toast } from "react-toastify";
 
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/SubmitButton";
@@ -55,7 +56,20 @@ const LoginPage = () => {
             router.push("/dashboard");
           } else router.push("/changepass");
         }
-      } else alert(res.message);
+      } else {
+        const notify = toast.error(res.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Slide,
+        });
+        notify;
+      }
     } catch (err: any) {
       console.log(err.message);
     }

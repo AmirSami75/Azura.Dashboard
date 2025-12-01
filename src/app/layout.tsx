@@ -3,6 +3,7 @@ import "./globals.css";
 import { Vazirmatn } from "next/font/google";
 import localFont from "next/font/local";
 import ThemeProvider from "@/components/ThemeProvider";
+import { ToastContainer } from "react-toastify";
 
 const vazir = Vazirmatn({
   subsets: ["arabic", "latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
       className={`${iranSans.variable} ${vazir.variable}`}
     >
       <body className="w-full h-screen">
+        <ToastContainer />
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

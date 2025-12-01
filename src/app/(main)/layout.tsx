@@ -7,7 +7,7 @@ export default function MainLayout({
 }>) {
   return (
     <div className="flex h-full w-full">
-      {/* image */};
+      {/* image */}
       <div className="relative h-full w-full xl:w-1/2">
         <Image
           src="/images/login-image.jpg"

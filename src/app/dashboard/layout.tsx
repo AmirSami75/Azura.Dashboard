@@ -4,6 +4,7 @@ import AuthProvider from "@/components/AuthProvider";
 import Header from "@/components/dashboard/Header";
 import Sidebar from "@/components/dashboard/Sidebar";
 import { useUIstore } from "@/store/ui-store";
+import { ToastContainer } from "react-toastify";
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
@@ -29,6 +30,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
       {/* main content */}
       <div className="flex-1 xl:mr-[228px] flex flex-col min-h-screen">
+        {/* notification container */}
+        <ToastContainer />
         {/* header component */}
         <header className="p-3 shadow bg-card text-card-foreground flex-none">
           <Header

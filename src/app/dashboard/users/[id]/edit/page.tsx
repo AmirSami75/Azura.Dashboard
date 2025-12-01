@@ -7,6 +7,7 @@ import Button from "@/components/ui/SubmitButton";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Slide, toast } from "react-toastify";
 
 import {
   addUserValidation,
@@ -46,8 +47,32 @@ const EditUser = () => {
       if (token && id) {
         const res = await editUserService(token, data, id);
         if (!res.isSuccess) {
-          alert(res.message);
+          console.log(res.message);
+          const notify = toast.error(res.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          notify;
         } else {
+          const notify = toast.success(res.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          notify;
           router.push("/dashboard/users");
         }
       }
@@ -131,7 +156,7 @@ const EditUser = () => {
         <div className="">
           <Button
             textButton="ویرایش کاربر"
-            bgColor={""}
+            bgColor={"success"}
             type="submit"
             textColor={"secondary-foreground"}
           />

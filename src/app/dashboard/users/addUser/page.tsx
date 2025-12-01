@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Slide, toast } from "react-toastify";
 
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/SubmitButton";
@@ -18,6 +19,7 @@ import useAuthStore from "@/store/auth-store";
 const AddUser: React.FC = () => {
   const token = useAuthStore((state) => state.token);
   const router = useRouter();
+  const [roles, setRoles] = useState([]);
 
   const {
     register,
@@ -35,9 +37,34 @@ const AddUser: React.FC = () => {
     if (token) {
       const res = await addUserService(token, data);
       if (res.isSuccess) {
-        console.log("اضافه کردن کاربر جدید:", res);
+        const notify = toast.success(res.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Slide,
+        });
+        notify;
         router.push("/dashboard/users");
-      } else alert(res.message);
+      } else {
+        console.log(res.message);
+        const notify = toast.error(res.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Slide,
+        });
+        notify;
+      }
       // ریست فرم در صورت نیاز
       reset();
     }
@@ -49,6 +76,9 @@ const AddUser: React.FC = () => {
         if (token) {
           const data = await getRolesService(token);
           console.log(data);
+          if (data.isSuccess) {
+            setRoles(data.data);
+          }
         }
       } catch (err: any) {
         console.log(err);

@@ -9,6 +9,7 @@ import useAuthStore from "@/store/auth-store";
 import { UserProps } from "@/models/users/User";
 import { Button } from "@/components/ui/Button";
 import { deleteUserService } from "@/app/api/auth/user";
+import { Slide, toast } from "react-toastify";
 
 type UserComponentProps = {
   user: UserProps;
@@ -25,8 +26,32 @@ const User = ({ user, onDelete }: UserComponentProps) => {
 
         if (res.isSuccess) {
           onDelete(id);
+          const notify = toast.error(res.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          notify;
         } else {
           console.error("delete failed");
+          const notify = toast.error(res.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          });
+          notify;
         }
       }
     } catch (err: any) {
