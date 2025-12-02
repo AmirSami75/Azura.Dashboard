@@ -38,18 +38,8 @@ const menuData: MenuDataProps[] = [
     ],
   },
   {
-    label: "تنظیمات",
-    to: "/settings",
-    children: [
-      {
-        label: "عمومی",
-        to: "/settings/general",
-      },
-      {
-        label: "ظاهری",
-        to: "/settings/appearance",
-      },
-    ],
+    label: "مدیریت تسک ها ",
+    to: "/dashboard/to-do-list",
   },
   {
     label: "گزارشات",

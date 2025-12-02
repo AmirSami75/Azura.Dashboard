@@ -11,7 +11,7 @@ const Header = ({ onToggleSidebar }: HeaderProps) => {
   const { width } = useViewportSize();
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center px-2 py-3">
       {/* right part */}
       <div>
         <CiMenuFries
@@ -30,7 +30,6 @@ const Header = ({ onToggleSidebar }: HeaderProps) => {
         {/* darkmode icon */}
         <DarkmodeButton />
       </div>
-      <div className=" p-4">hi </div>
     </div>
   );
 };
