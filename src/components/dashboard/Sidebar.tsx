@@ -40,7 +40,7 @@ const Sidebar = ({
           {/* sidebar header */}
           <div className="border-b px-4 py-5 border-border flex justify-between items-center ">
             <div
-              className="flex flex-row-reverse items-center text-2xl  font-semibold leading-none
+              className="flex flex-row-reverse items-center text-3xl  font-semibold leading-none
 "
             >
               <span className="text-destructive ">Azu</span>
