@@ -11,7 +11,7 @@ const Todolist = () => {
           variant="outline"
           className="mb-3 rounded-xl"
         >
-          افزودن کاربر جدید
+          افزودن تسک جدید
         </Button>
       </div>
       <div className="p-6 pt-0">

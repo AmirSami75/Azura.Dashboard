@@ -38,12 +38,19 @@ const Sidebar = ({
           style={{ translate: collapsed ? "0 0 " : "100% 0 " }}
         >
           {/* sidebar header */}
-          <div className="border-b px-4 py-5 border-border flex justify-between items-center">
-            <span className="grid place-content-center bg-secondary w-32 h-10 rounded-lg text-sm text-gray-600">
+          <div className="border-b px-4 py-5 border-border flex justify-between items-center text-2xl">
+            {/* <span className="grid place-content-center bg-secondary w-32 h-10 rounded-lg text-sm text-gray-600">
               LOGO
-            </span>
+            </span> */}
+            <div
+              className="font-semibold leading-none
+"
+            >
+              <span className="text-destructive">Azu</span>
+              <span className="text-accent">ra</span>
+            </div>
             <IoMdClose
-              className={`text-xl ${width > 1024 ? "hidden" : "null"}`}
+              className={` ${width > 1024 ? "hidden" : "null"}`}
               onClick={(e) => {
                 e.preventDefault();
                 onToggleSidebar();
