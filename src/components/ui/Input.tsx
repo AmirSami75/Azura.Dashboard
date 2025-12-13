@@ -20,7 +20,10 @@ const Input: FC<InputProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-y-2 w-full justify-center items-right">
-      <label htmlFor={nameInput} className="pr-3 text-md font-bold ">
+      <label
+        htmlFor={nameInput}
+        className="pr-3 text-md font-bold text-default-500 "
+      >
         {label}
       </label>
       <input

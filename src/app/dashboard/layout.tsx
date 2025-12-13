@@ -29,7 +29,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       </div>
 
       {/* main content */}
-      <div className="flex-1 xl:mr-[228px] flex flex-col min-h-screen">
+      <div className="flex-1 lg:mr-[228px] flex flex-col min-h-screen">
         {/* notification container */}
         <ToastContainer />
         {/* header component */}
