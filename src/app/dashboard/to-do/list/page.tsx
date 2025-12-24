@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import TodolistNotCompleted from "@/components/dashboard/todolist/TodolistNotCompleted";
 import TodolistCompleted from "@/components/dashboard/todolist/TodolistCompleted";
+import Link from "next/link";
 
 const Todolist = () => {
   return (
@@ -17,7 +18,7 @@ const Todolist = () => {
             variant="outline"
             className=" rounded-xl"
           >
-            افزودن تسک جدید
+            <Link href="/dashboard/to-do/addTask">افزودن تسک جدید</Link>
           </Button>
         </div>
       </div>

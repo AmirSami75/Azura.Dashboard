@@ -5,7 +5,7 @@ type SubmitButtonProps = {
   type: "submit" | "reset";
 };
 
-const Button = ({
+const SubmitButton = ({
   textButton,
   bgColor,
   textColor,
@@ -21,4 +21,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default SubmitButton;
