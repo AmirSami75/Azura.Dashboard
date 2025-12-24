@@ -6,7 +6,7 @@ import Input from "@/components/ui/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addTaskFormSchema } from "@/lib/validation/addTaskFormSchema";
-import { da } from "zod/locales";
+import { useEffect, useState } from "react";
 
 //
 type AddTaskInputProps = {
@@ -14,7 +14,7 @@ type AddTaskInputProps = {
   date: string;
   priority?: "extreme" | "moderate" | "low" | null | undefined;
   description: string;
-  attachFile: FileList;
+  attachFile: any;
 };
 
 const AddTask = () => {
@@ -34,9 +34,25 @@ const AddTask = () => {
   const file = files?.[0];
   console.log("file", file);
 
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
   const handleForm = (data: AddTaskInputProps) => {
     console.log("form data", data);
   };
+
+  useEffect(() => {
+    if (!file) {
+      setPreviewUrl(null);
+      return;
+    }
+    if (!file.type.startsWith("image/")) {
+      setPreviewUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+  }, [file]);
+
   return (
     <div className="container">
       <div className="border-b-2 border-destructive font-bold w-fit mb-8 py-1 mx-auto">
@@ -47,7 +63,7 @@ const AddTask = () => {
         <form
           noValidate
           onSubmit={handleSubmit(handleForm)}
-          className="grid grid-cols-1 md:grid-cols-3 items-end"
+          className="grid grid-cols-1 md:grid-cols-3 items-start "
         >
           {/* right : form fields */}
           <div className="space-y-6 md:col-span-2">
@@ -137,22 +153,43 @@ const AddTask = () => {
               آپلود عکس
             </label>
             <div className="flex h-44 w-full md:w-44 flex-col items-center justify-center rounded-lg border border-default-400 text-default-500 text-md px-2 bg-background shadow">
-              <div className="mb-4 text-6xl">
-                <LuImageUp />
-              </div>
-              <label className="cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">
-                فایل ها
-                <input
-                  type="file"
-                  className="hidden"
-                  {...register("attachFile")}
+              {previewUrl ? (
+                // preview image
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={previewUrl}
+                  alt="preview"
+                  className="h-full w-full object-cover"
                 />
-              </label>
+              ) : (
+                <div className="flex flex-col items-center justify-center">
+                  <div className="mb-3 text-6xl">
+                    <LuImageUp />
+                  </div>
+                  <p className="text-sm text-default-500">پیش‌نمایش تصویر</p>
+                </div>
+              )}
             </div>
+            <label className="cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">
+              انتخاب فایل
+              <input
+                id="attachFile"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                {...register("attachFile")}
+              />
+            </label>
+            {/* خطای Zod */}
+            {errors.attachFile && (
+              <p className="text-red-500 text-sm">
+                {errors.attachFile.message as string}
+              </p>
+            )}
             {file && (
               <section className="">
                 <ul className="text-left text-destructive text-sm ">
-                  <li>{file.name}</li>
+                  <li className="">{file.name}</li>
                   <li>size: {file.size} MB</li>
                 </ul>
               </section>
