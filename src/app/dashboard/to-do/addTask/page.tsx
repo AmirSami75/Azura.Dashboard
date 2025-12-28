@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addTaskFormSchema } from "@/lib/validation/addTaskFormSchema";
 import { useEffect, useState } from "react";
+import { formatfileSize } from "@/lib/formatters/fileSize";
 
 //
 type AddTaskInputProps = {
@@ -33,8 +34,10 @@ const AddTask = () => {
   const files = watch("attachFile");
   const file = files?.[0];
   console.log("file", file);
+  console.log("files", files);
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [fileSize, setFileSize] = useState("");
 
   const handleForm = (data: AddTaskInputProps) => {
     console.log("form data", data);
@@ -51,6 +54,8 @@ const AddTask = () => {
     }
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);
+
+    setFileSize(formatfileSize(file.size));
   }, [file]);
 
   return (
@@ -190,7 +195,7 @@ const AddTask = () => {
               <section className="">
                 <ul className="text-left text-destructive text-sm ">
                   <li className="">{file.name}</li>
-                  <li>size: {file.size} MB</li>
+                  <li>size: {fileSize}</li>
                 </ul>
               </section>
             )}
