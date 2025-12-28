@@ -6,6 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import MenuList from "./menu/menuList";
 import menuData from "@/data/menuData";
 import useViewportSize from "@/hooks/useViewportSize";
+import LogoutButton from "./LogoutButton";
 
 type SidebarProps = {
   collapsed: boolean;
@@ -34,15 +35,12 @@ const Sidebar = ({
       {/* sidebar */}
       <div className="h-full fixed start-0 top-0 z-50 pointer-events-none">
         <div
-          className="pointer-events-auto relative z-10 h-full w-[228px] transition-all duration-300 bg-card text-card-foreground shadow border-l-1 border-border"
+          className="pointer-events-auto relative z-10 h-full w-[228px] transition-all duration-300 bg-card text-card-foreground shadow border-l-1 border-border flex flex-col"
           style={{ translate: collapsed ? "0 0 " : "100% 0 " }}
         >
           {/* sidebar header */}
-          <div className="border-b px-4 py-5 border-border flex justify-between items-center ">
-            <div
-              className="flex flex-row-reverse items-center text-3xl  font-semibold leading-none
-"
-            >
+          <div className="border-b px-4 py-5 border-border flex justify-between items-center grow-0">
+            <div className="flex flex-row-reverse items-center text-3xl  font-semibold leading-none">
               <span className="text-destructive ">Azu</span>
               <span className="text-accent ">ra</span>
             </div>
@@ -59,10 +57,13 @@ const Sidebar = ({
             </button>
           </div>
           {/* sidebar content */}
-          <div className="px-4 py-6 mb-4 h-[calc(100%-40px)] grow">
+          <div className=" px-4 py-6 mb-4 grow">
             {menuData && menuData.length > 0 ? (
               <MenuList list={menuData} setCollapsed={setCollapsed} />
             ) : null}
+          </div>
+          <div className="hidden lg:flex justify-end p-4 grow-0 ">
+            <LogoutButton />
           </div>
         </div>
       </div>

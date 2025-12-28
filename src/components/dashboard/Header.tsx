@@ -1,6 +1,7 @@
 import { CiMenuFries } from "react-icons/ci";
 import DarkmodeButton from "./DarkmodeButton";
 import useViewportSize from "@/hooks/useViewportSize";
+import LogoutButton from "./LogoutButton";
 
 type HeaderProps = {
   collapsed: boolean;
@@ -23,12 +24,16 @@ const Header = ({ onToggleSidebar }: HeaderProps) => {
         {/* <Search/> */}
       </div>
       {/* left part */}
-      <div>
+      <div className="flex gap-x-3">
         {/* profile pic */}
         {/* notif icon */}
         {/* inbox icon */}
         {/* darkmode icon */}
         <DarkmodeButton />
+        {/* log out button */}
+        <div className="lg:hidden">
+          <LogoutButton />
+        </div>
       </div>
     </div>
   );
