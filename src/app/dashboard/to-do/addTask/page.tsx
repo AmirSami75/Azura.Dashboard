@@ -200,7 +200,7 @@ const AddTask = () => {
               )}
             </div>
             <div className="flex gap-3">
-              <label className="cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">
+              <label className="cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 duration-300">
                 انتخاب فایل
                 <input
                   id="attachFile"
@@ -217,7 +217,7 @@ const AddTask = () => {
               <button
                 type="button"
                 onClick={handleRemoveFile}
-                className="cursor-pointer rounded-md border border-destructive px-4 py-2 text-sm text-destructive hover:bg-destructive/10 duration-300"
+                className="cursor-pointer rounded-md border border-destructive px-4 py-2 text-sm text-destructive hover:bg-destructive-foreground duration-300"
               >
                 حذف فایل
               </button>
