@@ -6,7 +6,7 @@ import Input from "@/components/ui/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addTaskFormSchema } from "@/lib/validation/addTaskFormSchema";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { formatfileSize } from "@/lib/formatters/fileSize";
 
 //
@@ -23,12 +23,32 @@ const AddTask = () => {
     register,
     handleSubmit,
     watch,
+    resetField,
+    clearErrors,
     formState: { errors },
   } = useForm<AddTaskInputProps>({
     resolver: zodResolver(addTaskFormSchema),
     defaultValues: {},
     mode: "onSubmit",
   });
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { ref: attachRhfRef, ...attachRegister } = register("attachFile");
+
+  const handleRemoveFile = () => {
+    // پاک کردن state در RHF
+    resetField("attachFile");
+    clearErrors("attachFile");
+
+    // پاک کردن UI خود input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
+    // پاک کردن پیش‌نمایش و سایز
+    setPreviewUrl(null);
+    setFileSize("");
+  };
 
   // فایل انتخاب شده را از فایل می گیریم
   const files = watch("attachFile");
@@ -46,8 +66,12 @@ const AddTask = () => {
   useEffect(() => {
     if (!file) {
       setPreviewUrl(null);
+      setFileSize("");
       return;
     }
+
+    setFileSize(formatfileSize(file.size));
+
     if (!file.type.startsWith("image/")) {
       setPreviewUrl(null);
       return;
@@ -55,7 +79,7 @@ const AddTask = () => {
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);
 
-    setFileSize(formatfileSize(file.size));
+    return () => URL.revokeObjectURL(url);
   }, [file]);
 
   return (
@@ -175,16 +199,30 @@ const AddTask = () => {
                 </div>
               )}
             </div>
-            <label className="cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">
-              انتخاب فایل
-              <input
-                id="attachFile"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                {...register("attachFile")}
-              />
-            </label>
+            <div className="flex gap-3">
+              <label className="cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">
+                انتخاب فایل
+                <input
+                  id="attachFile"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  {...register("attachFile")}
+                  ref={(el) => {
+                    attachRhfRef(el);
+                    fileInputRef.current = el;
+                  }}
+                />
+              </label>
+              <button
+                type="button"
+                onClick={handleRemoveFile}
+                className="cursor-pointer rounded-md border border-destructive px-4 py-2 text-sm text-destructive hover:bg-destructive/10 duration-300"
+              >
+                حذف فایل
+              </button>
+            </div>
+
             {/* خطای Zod */}
             {errors.attachFile && (
               <p className="text-red-500 text-sm">
